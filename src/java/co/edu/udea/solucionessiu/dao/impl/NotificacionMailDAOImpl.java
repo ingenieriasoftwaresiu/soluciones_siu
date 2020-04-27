@@ -1201,7 +1201,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
     private void notificarMsg(String strSolicitante) throws GIDaoException{
         
         this.parametroMail = new ParametroMail();
-        this.parametroMail.setDestinatario(this.strDestinatario);        
+        this.parametroMail.setDestinatario(this.strDestinatario);             
         this.parametroMail.setAsunto(this.strAsunto);
         this.parametroMail.setMensaje(this.strMensaje);      
         this.parametroMail.setRutaArchivo(this.strRutaArchivo);

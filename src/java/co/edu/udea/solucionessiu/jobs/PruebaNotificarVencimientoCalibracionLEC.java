@@ -43,7 +43,7 @@ public class PruebaNotificarVencimientoCalibracionLEC {
         
         String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNomHoja, strFechaRecepcion, strNroSerie, strProducto, strSolicitante, strEmail, strTipoEquipo;
         Integer intFila, intFilaInicio, intColumna;
-        Double dblProducto;
+        Double dblProducto, dblNroSerie, dblEmail;
         Date dtFechaActual, dtFechaRecepcion;
         Long lgDiasNotificar, lgDiasDiferencia;
         Notificacion notificacion = null;
@@ -129,10 +129,12 @@ public class PruebaNotificarVencimientoCalibracionLEC {
                                lgDiasDiferencia = 0L;        
                                strProducto = "CCLEC-ASIU-";
                                dblProducto = 0.0d;
-                               strEmail = null;
+                               strEmail = "";
                                strNroSerie = "";
                                strSolicitante = "";
                                strTipoEquipo = "";
+                               dblNroSerie = 0.0d;
+                               dblEmail = 0.0d;
                                
                                while (cellIterator.hasNext()) {
                                    
@@ -166,9 +168,21 @@ public class PruebaNotificarVencimientoCalibracionLEC {
                                             System.out.println("strFechaRecepcion: " + strFechaRecepcion);                                         
                                              break;
                                         case 10:
-                                                strNroSerie = cell.getStringCellValue().trim();
-                                                System.out.println("strNroSerie: " + strNroSerie);
-                                                break;
+                                            try{
+                                                if (cell.getStringCellValue() != null){
+                                                    strNroSerie = strNroSerie + cell.getStringCellValue();
+                                                }
+                                             }catch(IllegalStateException ise){
+                                                 if (cell.getNumericCellValue() != 0){
+                                                     dblNroSerie = cell.getNumericCellValue();
+                                                     strNroSerie = strNroSerie + String.valueOf(dblNroSerie.intValue());
+                                                 }else{
+                                                     strNroSerie = strNroSerie + "*";
+                                                 }
+                                             }
+                                                
+                                            System.out.println("strNroSerie: " + strNroSerie);
+                                            break;
                                          case 12:
                                              try{
                                                 if (cell.getStringCellValue() != null){
@@ -186,7 +200,18 @@ public class PruebaNotificarVencimientoCalibracionLEC {
                                              System.out.println("strProducto: " + strProducto);                                                   
                                             break;
                                          case 38:
-                                             strEmail = cell.getStringCellValue().trim();
+                                             try{
+                                                if (cell.getStringCellValue() != null){
+                                                    strEmail = strEmail + cell.getStringCellValue();
+                                                }
+                                             }catch(IllegalStateException ise){
+                                                 if (cell.getNumericCellValue() != 0){
+                                                     dblEmail = cell.getNumericCellValue();
+                                                     strEmail = strEmail + String.valueOf(dblEmail.intValue());
+                                                 }else{
+                                                     strEmail = strEmail + "*";
+                                                 }
+                                             }                                             
                                              System.out.println("strEmail: " + strEmail);
                                             break;
                                     }                                   
@@ -194,7 +219,7 @@ public class PruebaNotificarVencimientoCalibracionLEC {
                               
                                 // Validaciones para notificación.                  
                                
-                               if (strEmail != null && !strEmail.equals("")){
+                               if (strEmail != null && !strEmail.equals("") && !strEmail.equals("0") && !strEmail.equals("null")){
                                    if (!strFechaRecepcion.equals("")){
                                        
                                        dtFechaRecepcion = null;
@@ -211,8 +236,9 @@ public class PruebaNotificarVencimientoCalibracionLEC {
                                        lgDiasDiferencia= (Long)(funcionesComunesDAO.getDiasDiferenciaFechas(dtFechaActual, dtFechaRecepcion));
                                         System.out.println("lgDiasDiferencia: " + lgDiasDiferencia);
                                         
-                                        if ((lgDiasDiferencia >= 0) && (lgDiasDiferencia <= lgDiasNotificar)){ 
-                                                                                            
+                                        if ((lgDiasDiferencia >= 0) && (lgDiasDiferencia <= lgDiasNotificar)){     
+                                        //if ((lgDiasDiferencia <= 0) && (lgDiasDiferencia = lgDiasNotificar)){ ** EJECUTAR EN PERIODOS ANTERIORES                              
+                                                                                                                                        
                                             CalibracionEquipo calibracionEquipo = new CalibracionEquipo();
                                             calibracionEquipo.setSolicitante(strSolicitante);
                                             calibracionEquipo.setProducto(strProducto);
@@ -235,7 +261,11 @@ public class PruebaNotificarVencimientoCalibracionLEC {
                     });                    
                     
                    try{
+                       if (calibraciones.size() > 0){
                         notificacionMailDAO.notificarVencimientoCalibracionEquipo(calibraciones); 
+                       }else{
+                        new GIDaoException("No se envió ninguna notificación!");
+                       }
                      } catch(GIDaoException g){
                         new GIDaoException("Se generó un error enviando las notificaciones!",g);
                         calibraciones.clear();
