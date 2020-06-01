@@ -199,7 +199,7 @@ public class PruebaNotificarVencimientoCalibracionLEC {
                                              
                                              System.out.println("strProducto: " + strProducto);                                                   
                                             break;
-                                         case 38:
+                                         case 40:
                                              try{
                                                 if (cell.getStringCellValue() != null){
                                                     strEmail = strEmail + cell.getStringCellValue();

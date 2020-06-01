@@ -193,7 +193,7 @@ public class NotificarVencimientoCalibracionLEC implements Job{
                                                  }
                                              }                                                                                         
                                             break;
-                                         case 38:
+                                         case 40:
                                             try{
                                                 if (cell.getStringCellValue() != null){
                                                     strEmail = strEmail + cell.getStringCellValue();

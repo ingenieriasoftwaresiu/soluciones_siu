@@ -1110,7 +1110,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             
             FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
                                     
-            strMsgFinal += "Le informo que a partir de este año acreditamos el nuevo servicio de calibración de balanzas en el rango de 1 mg a 19 kg, para que por favor nos tenga en cuenta en el momento que requiera calibrar sus balanzas. Adjunto certificado de acreditación con ONAC.<br /><br />";
+            //strMsgFinal += "Le informo que a partir de este año acreditamos el nuevo servicio de calibración de balanzas en el rango de 1 mg a 19 kg, para que por favor nos tenga en cuenta en el momento que requiera calibrar sus balanzas. Adjunto certificado de acreditación con ONAC.<br /><br />";
             strMsgFinal += "Atentamente,<br /><br />";
             strMsgFinal += "<b>Juan Felipe Gallego Sierra</b><br />";
             strMsgFinal += "Ingeniero de Equipos Científicos<br />";
@@ -1123,7 +1123,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             
             this.strMensaje = "";
             this.strRutaArchivo = "";
-            this.strRutaArchivo = "C:\\WebApps\\soluciones_siu\\Certificado_ONAC.pdf";
+            //this.strRutaArchivo = "C:\\WebApps\\soluciones_siu\\Certificado_ONAC.pdf";
             
             for (CalibracionEquipo calibracionEquipo : calibraciones){                                
                 
@@ -1199,7 +1199,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
     }
     
     private void notificarMsg(String strSolicitante) throws GIDaoException{
-        
+                        
         this.parametroMail = new ParametroMail();
         this.parametroMail.setDestinatario(this.strDestinatario);             
         this.parametroMail.setAsunto(this.strAsunto);
