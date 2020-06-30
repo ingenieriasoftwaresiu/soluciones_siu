@@ -1001,7 +1001,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
     public void notificarVencimientoAnticipoViaticoTiquete(AnticipoViaticoTiquete anticipoViaticoTiquete) throws GIDaoException {
         
         String strNombreDestinatario=null, strEmailDestinatario=null, strReserva, strSolicitante, strTipoSolicitud, strNroComprobante, strAccionNotificar, strValorLegalizado, strFechaLimiteEntrega;
-        String strCodigoNotificacion=null, strObs, strResponsable, strLugarComision;
+        String strCodigoNotificacion=null, strObs, strResponsable, strLugarComision, strFechaInicioComision;
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         Notificacion notificacion = null;
                 
@@ -1018,6 +1018,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
         strObs = "";
         strResponsable = "";
         strLugarComision = "";
+        strFechaInicioComision = "";
         
         try{
             notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
@@ -1040,6 +1041,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             strObs = anticipoViaticoTiquete.getObservacion().trim();
             strResponsable = anticipoViaticoTiquete.getResponsable().trim();
             strLugarComision = anticipoViaticoTiquete.getLugarComision().trim();
+            strFechaInicioComision = anticipoViaticoTiquete.getFechaInicioComision().trim();
             
             if ((strValorLegalizado != null) && (!strValorLegalizado.equals(""))){                
                 strValorLegalizado = "$" + funcionesComunesDAO.marcarMiles(strValorLegalizado);
@@ -1071,11 +1073,12 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             this.strMensaje += "- <b>Nombre del solicitante:</b> " + strSolicitante.trim() + ".<br />";
             this.strMensaje += "- <b>Lugar de comisión:</b> " + strLugarComision.trim() + ".<br />";
             this.strMensaje += "- <b>Valor legalizado:</b> " + strValorLegalizado + ".<br />";
-            this.strMensaje += "- <b>Fecha límite de entrega [aaaa-mm-dd]:</b> " + strFechaLimiteEntrega + ".<br />";
+            this.strMensaje += "- <b>Fecha inicio comisión [aaaa-mm-dd]:</b> " + strFechaInicioComision + ".<br />";
+            this.strMensaje += "- <b>Fecha fin comisión [aaaa-mm-dd]:</b> " + strFechaLimiteEntrega + ".<br />";
             this.strMensaje += "- <b>Observación:</b> " + strObs + ".<br /><br />";
             this.strMensaje += "Si ya hizo entrega de la documentación requerida en la Administración SIU, por favor hace caso omiso de este mensaje.<br /><br />";
             this.strMensaje += "Recuerde que:<br /><br />";
-            this.strMensaje += "- Para legalizar Anticipos, debe adjuntar las facturas.<br /><br />";
+            this.strMensaje += "- Para legalizar Anticipos, debe adjuntar las facturas que sumen el total del valor otorgado.<br /><br />";
             this.strMensaje += "- Para legalizar Pasajes, debe adjuntar los pasabordos.<br /><br />";
             this.strMensaje += "- Para legalizar Viáticos, debe adjuntar el cumplido y la carta donde se indique que se recibió el dinero.<br /><br />";
             this.strMensaje += "Atentamente,<br /><br />";

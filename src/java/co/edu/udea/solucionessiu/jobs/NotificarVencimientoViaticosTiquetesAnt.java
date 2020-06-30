@@ -45,12 +45,12 @@ public class NotificarVencimientoViaticosTiquetesAnt implements Job{
         new GIDaoException("Iniciando tarea NotificarVencimientoViaticosTiquetesAnterior ");
         
         String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNroDiasDespues, strNomHoja, strReserva, strSolicitante, strTipoSolicitud, strNroComprobante, strFechaLimiteEntrega;
-        String strAccionNotificar, strValorLegalizado, strObs, strResponsable, strLugarComision;
+        String strAccionNotificar, strValorLegalizado, strObs, strResponsable, strLugarComision, strFechaInicioComision;
         Double dbValorLegalizado;
         String[] strTemp;
         Integer intFila, intFilaInicio, intColumna, intRegsAlertados;
         Long lgDiasNotificar, lgDiasDiferencia;
-        Date dtFechaActual, dtFechaLimiteEntrega;
+        Date dtFechaActual, dtFechaLimiteEntrega, dtFechaInicioComision;
         Notificacion notificacion = null;
         Row row = null;
         Cell cell = null;
@@ -138,6 +138,7 @@ public class NotificarVencimientoViaticosTiquetesAnt implements Job{
                                 dbValorLegalizado = 0d;
                                 strObs = "";
                                 strResponsable = "";
+                                strFechaInicioComision = "";
                                 
                                 while (cellIterator.hasNext()) {
 
@@ -202,6 +203,24 @@ public class NotificarVencimientoViaticosTiquetesAnt implements Job{
                                             case 9:
                                                 strLugarComision = cell.getStringCellValue().trim();
                                                 System.out.println("strTipoSolicitud: " + strLugarComision);
+                                            break;
+                                            
+                                            case 10:
+                                              try{
+                                                    if (cell.getStringCellValue() != null){
+                                                        strFechaInicioComision = "";
+                                                    }
+                                                }catch(IllegalStateException ise){
+                                                    if (cell.getDateCellValue() != null){
+                                                        dtFechaInicioComision = cell.getDateCellValue();
+                                                        strFechaInicioComision = funcionesComunesDAO.convertirFechaLarga(dtFechaInicioComision.toString());                                                                
+                                                    }else{
+                                                        dtFechaInicioComision = null;
+                                                        strFechaInicioComision = "";
+                                                    }         
+                                                }
+                                              
+                                                System.out.println("strFechaInicioComision: " + strFechaInicioComision);
                                             break;
                                                  
                                             case 11:
@@ -282,6 +301,7 @@ public class NotificarVencimientoViaticosTiquetesAnt implements Job{
                                             anticipoViaticoTiquete.setCodigoNotificacion(strCodigoNotificacion);
                                             anticipoViaticoTiquete.setResponsable(strResponsable);
                                             anticipoViaticoTiquete.setLugarComision(strLugarComision);
+                                            anticipoViaticoTiquete.setFechaInicioComision(strFechaInicioComision);
 
                                              try{
                                                 notificacionMailDAO.notificarVencimientoAnticipoViaticoTiquete(anticipoViaticoTiquete);                      

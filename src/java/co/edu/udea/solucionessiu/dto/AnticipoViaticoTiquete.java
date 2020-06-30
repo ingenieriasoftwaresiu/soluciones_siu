@@ -24,6 +24,15 @@ public class AnticipoViaticoTiquete {
     private String codigoNotificacion;
     private String responsable;
     private String lugarComision;
+    private String fechaInicioComision;
+
+    public String getFechaInicioComision() {
+        return fechaInicioComision;
+    }
+
+    public void setFechaInicioComision(String fechaInicioComision) {
+        this.fechaInicioComision = fechaInicioComision;
+    }
 
     public String getLugarComision() {
         return lugarComision;

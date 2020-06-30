@@ -39,12 +39,12 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
         new GIDaoException("Iniciando tarea NotificarVencimientoViaticosTiquetesAnterior ");
         
         String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNroDiasDespues, strNomHoja, strReserva, strSolicitante, strTipoSolicitud, strNroComprobante, strFechaLimiteEntrega;
-        String strAccionNotificar, strValorLegalizado, strObs, strLugarComision;
+        String strAccionNotificar, strValorLegalizado, strObs, strResponsable, strLugarComision, strFechaInicioComision;
         Double dbValorLegalizado;
         String[] strTemp;
         Integer intFila, intFilaInicio, intColumna, intRegsAlertados;
         Long lgDiasNotificar, lgDiasDiferencia;
-        Date dtFechaActual, dtFechaLimiteEntrega;
+        Date dtFechaActual, dtFechaLimiteEntrega, dtFechaInicioComision;
         Notificacion notificacion = null;
         Row row = null;
         Cell cell = null;
@@ -134,6 +134,8 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                 AnticipoViaticoTiquete anticipoViaticoTiquete  = null;
                                 dbValorLegalizado = 0d;
                                 strObs = "";
+                                strResponsable = "";
+                                strFechaInicioComision = "";
                                 
                                 while (cellIterator.hasNext()) {
 
@@ -141,7 +143,7 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                     intColumna = cell.getColumnIndex(); 
                                     
                                     switch(intColumna){
-                                        case 0: 
+                                            case 0: 
                                                try{
                                                     if (cell.getStringCellValue() != null){                      
                                                         System.out.println("String");
@@ -157,6 +159,24 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                                 }
                                                                                     
                                             System.out.println("strReserva: " + strReserva);
+                                            break;
+                                            
+                                            case 2: 
+                                               try{
+                                                    if (cell.getStringCellValue() != null){                      
+                                                        System.out.println("String");
+                                                        strResponsable = cell.getStringCellValue();                                                        
+                                                    }
+                                                }catch(IllegalStateException ise){
+                                                    if (cell.getNumericCellValue() != 0){
+                                                        System.out.println("Numeric");
+                                                        strResponsable = String.valueOf(cell.getNumericCellValue());                                                 
+                                                    }else{                    
+                                                        strResponsable = "-";
+                                                    }                                              
+                                                }
+                                                                                    
+                                            System.out.println("strResponsable: " + strResponsable);
                                             break;
                                             
                                             case 3:
@@ -188,6 +208,24 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                             case 9:
                                                 strLugarComision = cell.getStringCellValue().trim();
                                                 System.out.println("strTipoSolicitud: " + strLugarComision);
+                                            break;
+                                            
+                                            case 10:
+                                              try{
+                                                    if (cell.getStringCellValue() != null){
+                                                        strFechaInicioComision = "";
+                                                    }
+                                                }catch(IllegalStateException ise){
+                                                    if (cell.getDateCellValue() != null){
+                                                        dtFechaInicioComision = cell.getDateCellValue();
+                                                        strFechaInicioComision = funcionesComunesDAO.convertirFechaLarga(dtFechaInicioComision.toString());                                                                
+                                                    }else{
+                                                        dtFechaInicioComision = null;
+                                                        strFechaInicioComision = "";
+                                                    }         
+                                                }
+                                              
+                                                System.out.println("strFechaInicioComision: " + strFechaInicioComision);
                                             break;
                                                  
                                             case 11:
@@ -274,7 +312,9 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                             anticipoViaticoTiquete.setValorLegalizado(strValorLegalizado);
                                             anticipoViaticoTiquete.setObservacion(strObs);
                                             anticipoViaticoTiquete.setCodigoNotificacion(strCodigoNotificacion);
+                                            anticipoViaticoTiquete.setResponsable(strResponsable);
                                             anticipoViaticoTiquete.setLugarComision(strLugarComision);
+                                            anticipoViaticoTiquete.setFechaInicioComision(strFechaInicioComision);
 
                                              try{
                                                 notificacionMailDAO.notificarVencimientoAnticipoViaticoTiquete(anticipoViaticoTiquete);                      
