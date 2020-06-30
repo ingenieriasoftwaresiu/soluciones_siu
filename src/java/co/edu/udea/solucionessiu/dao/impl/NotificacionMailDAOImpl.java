@@ -1152,9 +1152,9 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                         strTemp = strEmail.split(";");
 
                         if (strTemp.length > 1){
-                            strEmail = strTemp[0];
+                            strEmail = strTemp[0];        
                             this.strDestinatario = strEmail;
-                        }
+                        }                        
                     }                    
                             
                     notificarMsg(strSolicitante);                    
@@ -1191,9 +1191,9 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                 strTemp = strEmail.split(";");
 
                 if (strTemp.length > 1){
-                    strEmail = strTemp[0];    
+                    strEmail = strTemp[0];       
                     this.strDestinatario = strEmail;
-                }
+                }                
             }                        
             
             notificarMsg(strSolicitante);            
