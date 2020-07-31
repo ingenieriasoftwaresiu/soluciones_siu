@@ -1203,7 +1203,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
     
     private void notificarMsg(String strSolicitante) throws GIDaoException{
                         
-        this.parametroMail = new ParametroMail();
+        this.parametroMail = new ParametroMail(); 
         this.parametroMail.setDestinatario(this.strDestinatario);             
         this.parametroMail.setAsunto(this.strAsunto);
         this.parametroMail.setMensaje(this.strMensaje);      
@@ -1217,8 +1217,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
               
         new GIDaoException("Notificación enviada correctamente a " + strSolicitante + " al correo " + this.strDestinatario);  
 
-        this.strDestinatario = null;
-        this.strAsunto = null;
+        this.strDestinatario = "";
+        this.strAsunto = "";
         this.strMensaje = "";
         this.parametroMail = null;        
     }
