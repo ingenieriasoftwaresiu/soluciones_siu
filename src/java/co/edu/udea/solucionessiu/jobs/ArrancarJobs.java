@@ -29,7 +29,8 @@ public class ArrancarJobs implements ServletContextListener {
             new ProgramacionNotificarVencimientoContratosNalesAnt().crearProgramacion();
             new ProgramacionNotificarVencimientoContratosNalesAct().crearProgramacion();
             new ProgramacionNotificarVencimientoContratosInternales().crearProgramacion();
-            new ProgramacionNotificarVencimientoContratosPS().crearProgramacion();
+            new ProgramacionNotificarVencimientoContratosPSAct().crearProgramacion();
+            new ProgramacionNotificarVencimientoContratosPSAnt().crearProgramacion();
             new ProgramacionNotificarVencimientoPlanMejoramientoLEC().crearProgramacion();
             new ProgramacionNotificarVencimientoViaticosTiquetesAnt().crearProgramacion();
             new ProgramacionNotificarVencimientoViaticosTiquetesAct().crearProgramacion();

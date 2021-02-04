@@ -17,7 +17,7 @@ import org.quartz.impl.StdSchedulerFactory;
  *
  * @author jorge.correa
  */
-public class ProgramacionNotificarVencimientoContratosPS {
+public class ProgramacionNotificarVencimientoContratosPSAnt {
     
     public void crearProgramacion(){
         
@@ -25,7 +25,7 @@ public class ProgramacionNotificarVencimientoContratosPS {
         
         try {
             
-            new GIDaoException("Inicio la programación de la tarea NotificarVencimientoContratosPS");
+            new GIDaoException("Inicio la programación de la tarea NotificarVencimientoContratosPSAnt");
                                         
             intError = 1;
             
@@ -33,13 +33,13 @@ public class ProgramacionNotificarVencimientoContratosPS {
             scheduler.start(); 
             
             // Creación de una instancia de JobDetail.
-            JobDetail jobDetail = new JobDetail("NotificarVencimientoContratosPSJob", scheduler.DEFAULT_GROUP, NotificarVencimientoContratosPS.class);
+            JobDetail jobDetail = new JobDetail("NotificarVencimientoContratosPSAntJob", scheduler.DEFAULT_GROUP, NotificarVencimientoContratosPSAnt.class);
             
              intError = 2;
             
             // Se crea el trigger para ejecución todos los días.            
-             Trigger trigger = TriggerUtils.makeDailyTrigger(6, 00);
-             trigger.setName("tgNotificarVencimientoContratosPS");
+             Trigger trigger = TriggerUtils.makeDailyTrigger(6, 10);
+             trigger.setName("tgNotificarVencimientoContratosPSAnt");
              trigger.setGroup("grupoSIU");
              trigger.setPriority(1);
                                                   
@@ -50,10 +50,10 @@ public class ProgramacionNotificarVencimientoContratosPS {
                         
              intError = 4;
              
-             new GIDaoException("Finalizó la programación de la tarea NotificarVencimientoContratosPS.");
+             new GIDaoException("Finalizó la programación de la tarea NotificarVencimientoContratosPSAnt.");
 
         } catch(Exception e) {
-            new GIDaoException("Se generó un error al ejecutar la tarea NotificarVencimientoContratosPS. Variable error = " +  intError, e);
+            new GIDaoException("Se generó un error al ejecutar la tarea NotificarVencimientoContratosPSAnt. Variable error = " +  intError, e);
         }
     }    
 }

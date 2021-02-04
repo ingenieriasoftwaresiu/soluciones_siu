@@ -27,16 +27,22 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 /**
  *
  * @author jorge.correa
  */
-public class PruebaNotificarVencimientoContratosPS {
+public class NotificarVencimientoContratosPSAct  implements Job{
     
-    public static void main(String args[]) throws IOException{
+    private FileInputStream fis;
+
+    @Override
+    public void execute(JobExecutionContext jec) throws JobExecutionException {
         
-        new GIDaoException("Iniciando tarea NotificarVencimientoContratosPS");
+        new GIDaoException("Iniciando tarea NotificarVencimientoContratosPSAct");
         
         String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNroDiasDespues, strNomHoja, strTipoSolicitud, strNroContrato, strGrupo, strContratista, strFechaFinalizacion;
         String strTipoContrato, strAccionNotificar;
@@ -47,7 +53,6 @@ public class PruebaNotificarVencimientoContratosPS {
         Row row = null;
         Cell cell = null;
         File myFile = null;
-        FileInputStream fis = null;
         XSSFWorkbook myWorkBook = null;
         
         FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
@@ -55,7 +60,7 @@ public class PruebaNotificarVencimientoContratosPS {
         NotificacionMailDAO notificacionMailDAO = new NotificacionMailDAOImpl();
         Contrato contrato = null;
         
-        strCodigoNotificacion = "CONTRATOSPS";
+        strCodigoNotificacion = "CONTRATOSPSACT";
         intFilaInicio = 7;
         dtFechaActual = null;
         lgDiasNotificar = 0L;
@@ -84,23 +89,22 @@ public class PruebaNotificarVencimientoContratosPS {
             strRutaArchivo = notificacion.getRuta().trim();
             lgDiasNotificar = new Long(notificacion.getDiasNotificar());
             strNroDiasDespues = "-" + String.valueOf(notificacion.getDiasDespuesNotificar());
-            System.out.println("strRutaArchivo: " + strRutaArchivo);
-            System.out.println("Días a notificar: " + lgDiasNotificar);
             
             try{            
                 myFile = new File(strRutaArchivo);
-                fis = new FileInputStream(myFile);
+                this.fis = new FileInputStream(myFile);
             }catch(FileNotFoundException fnfe){
                 new GIDaoException("Se generó un error cargando el objeto desde el archivo", fnfe);            
-                fis = null;
+                this.fis = null;
             }
             
-            if (fis != null){
+            if (this.fis != null){
                 
                 try{
-                    myWorkBook = new XSSFWorkbook (fis);
+                    myWorkBook = new XSSFWorkbook (this.fis);
                 }catch(IOException ioe){
                     new GIDaoException("Se generó un error abriendo el objeto de Excel desde el archivo", ioe);
+                    cerrarArchivo();
                 }
                 
                 if (myWorkBook != null){
@@ -115,8 +119,6 @@ public class PruebaNotificarVencimientoContratosPS {
                             
                             row = rowIterator.next();
                             intFila = row.getRowNum();
-
-                            System.out.println("Fila: " + new Integer(intFila+1));
 
                             if (intFila >= intFilaInicio){
                                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -134,13 +136,13 @@ public class PruebaNotificarVencimientoContratosPS {
                                     intColumna = cell.getColumnIndex(); 
                                     
                                     switch(intColumna){
-                                        case 5:
+                                        case 2:
                                             strGrupo = cell.getStringCellValue().trim();
                                             break;
-                                        case 7:
+                                        case 10:
                                             strTipoSolicitud = cell.getStringCellValue().trim();
                                             break;
-                                        case 8:
+                                        case 11:
                                             try{
                                                     if (cell.getStringCellValue() != null){
                                                         strNroContrato = cell.getStringCellValue();
@@ -153,10 +155,10 @@ public class PruebaNotificarVencimientoContratosPS {
                                                     }         
                                                 }                    
                                             break;
-                                        case 9:
+                                        case 12:
                                             strContratista = cell.getStringCellValue().trim();
                                             break;
-                                        case 25:
+                                        case 29:
                                             try{
                                                     if (cell.getStringCellValue() != null){
                                                         strFechaFinalizacion = "";
@@ -187,10 +189,10 @@ public class PruebaNotificarVencimientoContratosPS {
                                                      dtFechaFinalizacion = sdf.parse(strFechaFinalizacion);
                                                  }catch(ParseException pe){
                                                      new GIDaoException("Se generó un error parseando la fecha de finalización", pe);
+                                                     cerrarArchivo();
                                                  }
 
                                                 lgDiasDiferencia= (Long)(funcionesComunesDAO.getDiasDiferenciaFechas(dtFechaActual, dtFechaFinalizacion));
-                                                 System.out.println("lgDiasDiferencia: " + lgDiasDiferencia);
 
                                                  if ((lgDiasDiferencia.toString().equals("0")) || (lgDiasDiferencia.toString().equals(lgDiasNotificar.toString()))){
 
@@ -215,11 +217,10 @@ public class PruebaNotificarVencimientoContratosPS {
                                                          intRegsAlertados++;
                                                       } catch(GIDaoException g){
                                                          new GIDaoException("Se generó un error enviando la notificación para la " + strTipoContrato + " con código " + strNroContrato,g);
+                                                         cerrarArchivo();
                                                      }                                                  
                                                  }            
-                                            }else{
-                                               new GIDaoException("La fecha de terminación de la " + strTipoContrato + " es vacía!.");
-                                            }  
+                                            }
                                         }
                                     }           
                                 }                    
@@ -239,13 +240,7 @@ public class PruebaNotificarVencimientoContratosPS {
                     new GIDaoException("El objeto de Excel del archivo es nulo");
                 }
                 
-                try{
-                    if (fis != null){
-                        fis.close();
-                    }                        
-                }catch(IOException e){
-                    new GIDaoException("Se generó un error cerrando el FileInputStream Object", e);
-                }                 
+                cerrarArchivo();     
             }else{
                 new GIDaoException("El objeto del archivo es nulo");
             }
@@ -254,6 +249,16 @@ public class PruebaNotificarVencimientoContratosPS {
             new GIDaoException("El objeto de notificación es nulo");
         }
         
-        new GIDaoException("Finalizando tarea NotificarVencimientoContratosPS");        
+        new GIDaoException("Finalizando tarea NotificarVencimientoContratosPSAct");    
     }
+    
+     private void cerrarArchivo(){
+        try{
+            if (this.fis != null){
+                this.fis.close();
+            }                        
+        }catch(IOException e){
+            new GIDaoException("Se generó un error cerrando el FileInputStream Object", e);
+        }  
+    }    
 }

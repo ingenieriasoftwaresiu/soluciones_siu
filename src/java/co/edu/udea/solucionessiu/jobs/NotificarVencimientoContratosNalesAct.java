@@ -139,10 +139,10 @@ public class NotificarVencimientoContratosNalesAct implements Job{
                                     intColumna = cell.getColumnIndex(); 
                                     
                                     switch(intColumna){
-                                        case 7:
+                                        case 10:
                                             strTipoSolicitud = cell.getStringCellValue().trim();
                                             break;
-                                        case 8:
+                                        case 11:
                                             try{
                                                     if (cell.getStringCellValue() != null){
                                                         strNroContrato = cell.getStringCellValue();
@@ -155,7 +155,7 @@ public class NotificarVencimientoContratosNalesAct implements Job{
                                                     }         
                                                 }                    
                                             break;
-                                        case 25:
+                                        case 29:
                                             try{
                                                     if (cell.getStringCellValue() != null){
                                                         strFechaFinalizacion = "";

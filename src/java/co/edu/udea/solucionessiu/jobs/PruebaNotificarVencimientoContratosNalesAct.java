@@ -55,7 +55,7 @@ public class PruebaNotificarVencimientoContratosNalesAct {
         Contrato contrato = null;
         
         strCodigoNotificacion = "CONTRATOSNALESACT";
-         intFilaInicio = 7;
+        intFilaInicio = 7;
         dtFechaActual = null;
         lgDiasNotificar = 0L;
         strFechaActual = null;
@@ -132,10 +132,10 @@ public class PruebaNotificarVencimientoContratosNalesAct {
                                     intColumna = cell.getColumnIndex(); 
                                     
                                     switch(intColumna){
-                                        case 7:
+                                        case 10:
                                             strTipoSolicitud = cell.getStringCellValue().trim();
                                             break;
-                                        case 8:
+                                        case 11:
                                             try{
                                                     if (cell.getStringCellValue() != null){
                                                         strNroContrato = cell.getStringCellValue();
@@ -148,7 +148,7 @@ public class PruebaNotificarVencimientoContratosNalesAct {
                                                     }         
                                                 }                    
                                             break;
-                                        case 25:
+                                        case 29:
                                             try{
                                                     if (cell.getStringCellValue() != null){
                                                         strFechaFinalizacion = "";

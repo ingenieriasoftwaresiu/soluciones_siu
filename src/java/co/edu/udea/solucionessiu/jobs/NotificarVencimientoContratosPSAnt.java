@@ -35,44 +35,40 @@ import org.quartz.JobExecutionException;
  *
  * @author jorge.correa
  */
-public class NotificarVencimientoContratosNalesAnt implements Job{
+public class NotificarVencimientoContratosPSAnt  implements Job{
     
     private FileInputStream fis;
 
     @Override
     public void execute(JobExecutionContext jec) throws JobExecutionException {
         
-         /*
-            IMPORTANTE: Esta clase difiere de la clase PruebaNotificarVencimientoDocumentos.java en el método cerrarArchivo() y la variable de la FileInputStream fis. NO reemplazar directamente el contenido!.
-        */
+        new GIDaoException("Iniciando tarea NotificarVencimientoContratosPSAnt");
         
-        new GIDaoException("Iniciando tarea NotificarVencimientoContratosNalesAnt");
-        
-        String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNomHoja, strTipoSolicitud, strNroContrato, strFechaFinalizacion, strTipoContrato, strAccionNotificar;
+        String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNroDiasDespues, strNomHoja, strTipoSolicitud, strNroContrato, strGrupo, strContratista, strFechaFinalizacion;
+        String strTipoContrato, strAccionNotificar;
         Integer intFila, intFilaInicio, intColumna, intRegsAlertados;
-        Date dtFechaActual, dtFechaFinalizacion;
         Long lgDiasNotificar, lgDiasDiferencia;
+        Date dtFechaActual, dtFechaFinalizacion;
         Notificacion notificacion = null;
         Row row = null;
         Cell cell = null;
         File myFile = null;
-        FileInputStream fis = null;
         XSSFWorkbook myWorkBook = null;
-                
+        
         FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         NotificacionMailDAO notificacionMailDAO = new NotificacionMailDAOImpl();
         Contrato contrato = null;
         
-        strCodigoNotificacion = "CONTRATOSNALESANT";
-         intFilaInicio = 7;
+        strCodigoNotificacion = "CONTRATOSPSANT";
+        intFilaInicio = 7;
         dtFechaActual = null;
         lgDiasNotificar = 0L;
         strFechaActual = null;
         strRutaArchivo = "";
         intRegsAlertados = 0;
-        strTipoContrato = "Minuta servicios";
-                
+        strTipoContrato = "Prestación servicios personales";
+        
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         strFechaActual = funcionesComunesDAO.getFechaActual();
                 
@@ -92,53 +88,57 @@ public class NotificarVencimientoContratosNalesAnt implements Job{
         if (notificacion != null){
             strRutaArchivo = notificacion.getRuta().trim();
             lgDiasNotificar = new Long(notificacion.getDiasNotificar());
+            strNroDiasDespues = "-" + String.valueOf(notificacion.getDiasDespuesNotificar());
             
             try{            
                 myFile = new File(strRutaArchivo);
-                fis = new FileInputStream(myFile);
+                this.fis = new FileInputStream(myFile);
             }catch(FileNotFoundException fnfe){
                 new GIDaoException("Se generó un error cargando el objeto desde el archivo", fnfe);            
-                fis = null;
+                this.fis = null;
             }
             
-            if (fis != null){
+            if (this.fis != null){
+                
                 try{
-                    myWorkBook = new XSSFWorkbook (fis);
+                    myWorkBook = new XSSFWorkbook (this.fis);
                 }catch(IOException ioe){
                     new GIDaoException("Se generó un error abriendo el objeto de Excel desde el archivo", ioe);
                     cerrarArchivo();
                 }
                 
                 if (myWorkBook != null){
+                    
                     strNomHoja = notificacion.getNombreHoja().trim();
                     XSSFSheet mySheet = myWorkBook.getSheet(strNomHoja);
                     Iterator<Row> rowIterator = mySheet.iterator();
                     
                     while (rowIterator.hasNext()) {
-                        
-                        intFila = 0;                                   
+                            
+                            intFila = 0;                                   
                             
                             row = rowIterator.next();
                             intFila = row.getRowNum();
-                    
+
                             if (intFila >= intFilaInicio){
-                              Iterator<Cell> cellIterator = row.cellIterator();                                
-                              
-                               intColumna = 0;
-                               cell = null;
-                               strTipoSolicitud = "";
-                               strNroContrato = "";
-                               strFechaFinalizacion = "";
-                               dtFechaFinalizacion = null;
-                               lgDiasDiferencia = 0L;
-                               strAccionNotificar = "";
-                               
-                               while (cellIterator.hasNext()) {
-                                   
-                                   cell = cellIterator.next();
+                                Iterator<Cell> cellIterator = row.cellIterator();
+                                strGrupo = null;
+                                strTipoSolicitud = null;
+                                strNroContrato = null;
+                                strGrupo = null;
+                                strContratista = null;
+                                strFechaFinalizacion = null;
+                                strAccionNotificar = null;
+                                
+                                while (cellIterator.hasNext()) {
+
+                                    cell = cellIterator.next();
                                     intColumna = cell.getColumnIndex(); 
                                     
                                     switch(intColumna){
+                                        case 2:
+                                            strGrupo = cell.getStringCellValue().trim();
+                                            break;
                                         case 10:
                                             strTipoSolicitud = cell.getStringCellValue().trim();
                                             break;
@@ -155,6 +155,9 @@ public class NotificarVencimientoContratosNalesAnt implements Job{
                                                     }         
                                                 }                    
                                             break;
+                                        case 12:
+                                            strContratista = cell.getStringCellValue().trim();
+                                            break;
                                         case 28:
                                             try{
                                                     if (cell.getStringCellValue() != null){
@@ -170,59 +173,64 @@ public class NotificarVencimientoContratosNalesAnt implements Job{
                                                     }         
                                                 }
                                                 break;
-                                    }                                   
-                               }// Fin del iterador de celdas.
+                                    } 
+                                    
+                                } // Fin del iterador de celdas.
                                 
-                                // Validaciones para notificación.                                           
-                               
-                               if (strTipoSolicitud.equals(strTipoContrato)){       
-                                   if (!strFechaFinalizacion.equals("")){
-                                                                                                                  
-                                       dtFechaFinalizacion=  null;
+                                // Validaciones para notificación.
+                                
+                                if (strTipoSolicitud != null && !strTipoSolicitud.equals("")){
+                                    if (strTipoSolicitud.equals(strTipoContrato)){                       
+                                        if (strFechaFinalizacion != null){
+                                            if (!strFechaFinalizacion.equals("")){                                                                                                                  
+                                                dtFechaFinalizacion=  null;
 
-                                        try{
-                                            dtFechaFinalizacion = sdf.parse(strFechaFinalizacion);
-                                        }catch(ParseException pe){
-                                            new GIDaoException("Se generó un error parseando la fecha de finalización", pe);
-                                            cerrarArchivo();
+                                                 try{
+                                                     dtFechaFinalizacion = sdf.parse(strFechaFinalizacion);
+                                                 }catch(ParseException pe){
+                                                     new GIDaoException("Se generó un error parseando la fecha de finalización", pe);
+                                                     cerrarArchivo();
+                                                 }
+
+                                                lgDiasDiferencia= (Long)(funcionesComunesDAO.getDiasDiferenciaFechas(dtFechaActual, dtFechaFinalizacion));
+
+                                                 if ((lgDiasDiferencia.toString().equals("0")) || (lgDiasDiferencia.toString().equals(lgDiasNotificar.toString()))){
+
+                                                     if (lgDiasDiferencia.toString().equals("0")){
+                                                         strAccionNotificar = "DIAVENC";
+                                                     }
+
+                                                     if (lgDiasDiferencia.toString().equals(lgDiasNotificar.toString())){
+                                                          strAccionNotificar = "AVENCER";
+                                                     }
+
+                                                     contrato = new Contrato();
+                                                     contrato.setCodigoContrato(strNroContrato);
+                                                     contrato.setFechaTerminacion(strFechaFinalizacion);
+                                                     contrato.setTipoContrato("PS");
+                                                     contrato.setGrupo(strGrupo);
+                                                     contrato.setContratista(strContratista);
+                                                     contrato.setAccionNotificar(strAccionNotificar);
+
+                                                      try{
+                                                         notificacionMailDAO.notificarVencimientoContrato(contrato);                      
+                                                         intRegsAlertados++;
+                                                      } catch(GIDaoException g){
+                                                         new GIDaoException("Se generó un error enviando la notificación para la " + strTipoContrato + " con código " + strNroContrato,g);
+                                                         cerrarArchivo();
+                                                     }                                                  
+                                                 }            
+                                            }
                                         }
-                                       
-                                       lgDiasDiferencia= (Long)(funcionesComunesDAO.getDiasDiferenciaFechas(dtFechaActual, dtFechaFinalizacion));
-                                        
-                                        if ((lgDiasDiferencia.toString().equals("0")) || (lgDiasDiferencia.toString().equals(lgDiasNotificar.toString()))){
-                                            
-                                            if (lgDiasDiferencia.toString().equals("0")){
-                                                strAccionNotificar = "DIAVENC";
-                                            }
-
-                                            if (lgDiasDiferencia.toString().equals(lgDiasNotificar.toString())){
-                                                 strAccionNotificar = "AVENCER";
-                                            }
-                                            
-                                            contrato = new Contrato();
-                                            contrato.setCodigoContrato(strNroContrato);
-                                            contrato.setFechaTerminacion(strFechaFinalizacion);
-                                            contrato.setTipoContrato("NALANT");
-                                            contrato.setAccionNotificar(strAccionNotificar);
-                                            
-                                             try{
-                                                notificacionMailDAO.notificarVencimientoContrato(contrato);                      
-                                                intRegsAlertados++;
-                                             } catch(GIDaoException g){
-                                                new GIDaoException("Se generó un error enviando la notificación para la " + strTipoContrato + " con código " + strNroContrato,g);
-                                                cerrarArchivo();
-                                            }                                                  
-                                        }            
-                                       
-                                   }                             
-                               }                 
-                               
-                               contrato = null;
-                            }
-                        
-                    }// Fin del iterador de registros.
+                                    }           
+                                }                    
+                                
+                                contrato = null;
+                             }                            
+                            
+                        } // Fin del iterador de registros.
                     
-                    new GIDaoException("Total de documentos alertados: " + intRegsAlertados);
+                    new GIDaoException("Total de contratos alertados: " + intRegsAlertados);
 
                     row = null;
                     strNomHoja = "";
@@ -231,21 +239,20 @@ public class NotificarVencimientoContratosNalesAnt implements Job{
                 }else{
                     new GIDaoException("El objeto de Excel del archivo es nulo");
                 }
-               
-                cerrarArchivo();  
-               
+                
+                cerrarArchivo();     
             }else{
                 new GIDaoException("El objeto del archivo es nulo");
-            }            
+            }
+            
         }else{
             new GIDaoException("El objeto de notificación es nulo");
         }
         
-        new GIDaoException("Finalizando tarea NotificarVencimientoContratosNalesAnt");
-        
+        new GIDaoException("Finalizando tarea NotificarVencimientoContratosPSAnt");    
     }
     
-    private void cerrarArchivo(){
+     private void cerrarArchivo(){
         try{
             if (this.fis != null){
                 this.fis.close();
