@@ -25,7 +25,16 @@ public class AnticipoViaticoTiquete {
     private String responsable;
     private String lugarComision;
     private String fechaInicioComision;
+    private String nroTicket;
 
+    public String getNroTicket() {
+        return nroTicket;
+    }
+
+    public void setNroTicket(String nroTicket) {
+        this.nroTicket = nroTicket;
+    }    
+    
     public String getFechaInicioComision() {
         return fechaInicioComision;
     }

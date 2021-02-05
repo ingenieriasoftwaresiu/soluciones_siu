@@ -42,10 +42,10 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
     @Override
     public void execute(JobExecutionContext jec) throws JobExecutionException {
         
-        new GIDaoException("Iniciando tarea NotificarVencimientoViaticosTiquetesActual ");
+        new GIDaoException("Iniciando tarea NotificarVencimientoViaticosTiquetesActual");
         
         String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNroDiasDespues, strNomHoja, strReserva, strSolicitante, strTipoSolicitud, strNroComprobante, strFechaLimiteEntrega;
-        String strAccionNotificar, strValorLegalizado, strObs, strResponsable, strLugarComision, strFechaInicioComision;
+        String strAccionNotificar, strValorLegalizado, strObs, strResponsable, strLugarComision, strFechaInicioComision, strNroTicket;
         Double dbValorLegalizado;
         String[] strTemp;
         Integer intFila, intFilaInicio, intColumna, intRegsAlertados;
@@ -62,7 +62,7 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         NotificacionMailDAO notificacionMailDAO = new NotificacionMailDAOImpl();
         
-        strCodigoNotificacion = "ANTVIATTIQACT ";
+        strCodigoNotificacion = "ANTVIATTIQACT";
         intFilaInicio = 7;
         dtFechaActual = null;
         lgDiasNotificar = 0L;
@@ -139,6 +139,7 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                 strObs = "";
                                 strResponsable = "";
                                 strFechaInicioComision = "";
+                                strNroTicket = "";
                                 
                                 while (cellIterator.hasNext()) {
 
@@ -284,8 +285,28 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                     }         
                                                 }                          
                                             break; 
+                                            
+                                            case 20:
+                                                try{
+                                                    if (cell.getStringCellValue() != null){
+                                                        System.out.println("1");
+                                                        strNroTicket = cell.getStringCellValue();
+                                                    }
+                                                }catch(IllegalStateException ise){
+                                                    if (cell.getNumericCellValue() != 0){
+                                                        System.out.println("2");                   
+                                                        dbValorLegalizado = cell.getNumericCellValue();
+                                                        strNroTicket = String.valueOf(dbValorLegalizado.intValue());
+                                                    }else{                    
+                                                        System.out.println("3");
+                                                        strNroTicket = "-";
+                                                    }         
+                                                }
                                                 
-                                            case 19:
+                                                 System.out.println("strNroTicket: " + strNroTicket);
+                                            break; 
+                                                
+                                            case 21:
                                                 try{
                                                 if (cell.getStringCellValue() != null){
                                                         strObs = cell.getStringCellValue();
@@ -343,6 +364,7 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                             anticipoViaticoTiquete.setResponsable(strResponsable);
                                             anticipoViaticoTiquete.setLugarComision(strLugarComision);
                                             anticipoViaticoTiquete.setFechaInicioComision(strFechaInicioComision);
+                                            anticipoViaticoTiquete.setNroTicket(strNroTicket);
 
                                              try{
                                                 notificacionMailDAO.notificarVencimientoAnticipoViaticoTiquete(anticipoViaticoTiquete);                      
