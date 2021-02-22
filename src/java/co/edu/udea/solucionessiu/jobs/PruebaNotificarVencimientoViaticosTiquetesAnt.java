@@ -266,7 +266,7 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                                  System.out.println("strValorLegalizado: " + strValorLegalizado);
                                             break; 
                                                 
-                                            case 19:
+                                            case 21:
                                                 strObs = cell.getStringCellValue().trim();
                                                 System.out.println("strObs: " + strObs);
                                             break;

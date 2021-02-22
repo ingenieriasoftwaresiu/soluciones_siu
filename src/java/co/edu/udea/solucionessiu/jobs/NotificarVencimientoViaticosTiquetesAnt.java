@@ -254,7 +254,7 @@ public class NotificarVencimientoViaticosTiquetesAnt implements Job{
                                                 }                          
                                             break; 
                                                 
-                                            case 19:
+                                            case 21:
                                                 strObs = cell.getStringCellValue().trim();
                                             break;
                                                 
