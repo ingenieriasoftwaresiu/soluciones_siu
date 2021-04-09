@@ -172,10 +172,10 @@ public class PruebaNotificarVencimientoPlanCalibracionEquiposASIU {
                                                     }                                                    
                                                 }                                           
                                             break;
-                                        case 8: 
+                                        case 9: 
                                             strRespCalibracion = cell.getStringCellValue();
                                             break;
-                                        case 9:
+                                        case 10:
                                              try{
                                                     if (cell.getStringCellValue() != null){
                                                         strFechaProgCalibracion = "";
@@ -190,7 +190,7 @@ public class PruebaNotificarVencimientoPlanCalibracionEquiposASIU {
                                                     }         
                                                 }
                                                 break;
-                                        case 10:
+                                        case 11:
                                             try{
                                                     if (cell.getStringCellValue() != null){
                                                         if (!cell.getStringCellValue().equals("No aplica")){
