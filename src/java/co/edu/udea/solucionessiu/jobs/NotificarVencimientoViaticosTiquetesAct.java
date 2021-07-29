@@ -45,7 +45,7 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
         new GIDaoException("Iniciando tarea NotificarVencimientoViaticosTiquetesActual");
         
         String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNroDiasDespues, strNomHoja, strReserva, strSolicitante, strTipoSolicitud, strNroComprobante, strFechaLimiteEntrega;
-        String strAccionNotificar, strValorLegalizado, strObs, strResponsable, strLugarComision, strFechaInicioComision, strNroTicket;
+        String strAccionNotificar, strValorLegalizado, strObs, strResponsable, strLugarComision, strFechaInicioComision, strNroTicket, strGrupo;
         Double dbValorLegalizado;
         String[] strTemp;
         Integer intFila, intFilaInicio, intColumna, intRegsAlertados;
@@ -140,6 +140,7 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                 strResponsable = "";
                                 strFechaInicioComision = "";
                                 strNroTicket = "";
+                                strGrupo = "";
                                 
                                 while (cellIterator.hasNext()) {
 
@@ -165,6 +166,24 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                try{
                                                     if (cell.getStringCellValue() != null){                      
                                                         System.out.println("String");
+                                                        strGrupo = cell.getStringCellValue();                                                        
+                                                    }
+                                                }catch(IllegalStateException ise){
+                                                    if (cell.getNumericCellValue() != 0){
+                                                        System.out.println("Numeric");
+                                                        strGrupo = String.valueOf(cell.getNumericCellValue());                                                 
+                                                    }else{                    
+                                                        strGrupo = "-";
+                                                    }                                              
+                                                }
+                                                                                    
+                                            System.out.println("strGrupo: " + strGrupo);
+                                            break;
+                                            
+                                            case 3: 
+                                               try{
+                                                    if (cell.getStringCellValue() != null){                      
+                                                        System.out.println("String");
                                                         strResponsable = cell.getStringCellValue();                                                        
                                                     }
                                                 }catch(IllegalStateException ise){
@@ -178,8 +197,8 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                                                     
                                             System.out.println("strResponsable: " + strResponsable);
                                             break;
-                                            
-                                            case 3:
+                                                                                                                                    
+                                            case 4:
                                                 try{
                                                     if (cell.getStringCellValue() != null){                                                      
                                                             strSolicitante = cell.getStringCellValue().trim();          
@@ -190,10 +209,11 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                     }else{                    
                                                         strSolicitante = "-";
                                                     }                   
-                                                }                                            
+                                                } 
+                                                System.out.println("strSolicitante: " + strSolicitante);
                                             break;
                                                 
-                                            case 4:
+                                            case 5:
                                                 try{
                                                     if (cell.getStringCellValue() != null){                                                      
                                                             strTipoSolicitud = cell.getStringCellValue().trim();          
@@ -205,9 +225,10 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                         strTipoSolicitud = "-";
                                                     }                   
                                                 }
+                                                System.out.println("strTipoSolicitud: " + strTipoSolicitud);
                                             break;
                                                 
-                                             case 8:
+                                             case 9:
                                                 try{
                                                     if (cell.getStringCellValue() != null){
                                                         strNroComprobante = cell.getStringCellValue();
@@ -219,9 +240,11 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                         strNroComprobante = "-";
                                                     }         
                                                 }
+                                                
+                                                 System.out.println("strNroComprobante: " + strNroComprobante);
                                             break;   
                                                  
-                                            case 9:
+                                            case 10:
                                                 try{
                                                     if (cell.getStringCellValue() != null){
                                                         strLugarComision = cell.getStringCellValue();
@@ -237,7 +260,7 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                  System.out.println("strLugarComision: " + strLugarComision);
                                             break; 
                                             
-                                            case 10:
+                                            case 11:
                                               try{
                                                     if (cell.getStringCellValue() != null){
                                                         strFechaInicioComision = "";
@@ -255,7 +278,7 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                 System.out.println("strFechaInicioComision: " + strFechaInicioComision);
                                             break;
                                                  
-                                            case 11:
+                                            case 12:
                                               try{
                                                     if (cell.getStringCellValue() != null){
                                                         strFechaLimiteEntrega = "";
@@ -268,25 +291,32 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                         dtFechaLimiteEntrega = null;
                                                         strFechaLimiteEntrega = "";
                                                     }         
-                                                }                              
+                                                }
+                                              
+                                                System.out.println("strFechaLimiteEntrega: " + strFechaLimiteEntrega);
                                             break;
                                                 
-                                            case 17:
+                                            case 18:
                                                 try{
-                                                    if (cell.getStringCellValue() != null){                                    
+                                                    if (cell.getStringCellValue() != null){
+                                                        System.out.println("1");
                                                         strValorLegalizado = cell.getStringCellValue();
                                                     }
                                                 }catch(IllegalStateException ise){
-                                                    if (cell.getNumericCellValue() != 0){                                  
+                                                    if (cell.getNumericCellValue() != 0){
+                                                        System.out.println("2");                   
                                                         dbValorLegalizado = cell.getNumericCellValue();
                                                         strValorLegalizado = String.valueOf(dbValorLegalizado.intValue());
-                                                    }else{                                  
+                                                    }else{                    
+                                                        System.out.println("3");
                                                         strValorLegalizado = "-";
                                                     }         
-                                                }                          
+                                                }
+                                                
+                                                 System.out.println("strValorLegalizado: " + strValorLegalizado);
                                             break; 
                                             
-                                            case 20:
+                                            case 21:
                                                 try{
                                                     if (cell.getStringCellValue() != null){
                                                         System.out.println("1");
@@ -306,9 +336,9 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                  System.out.println("strNroTicket: " + strNroTicket);
                                             break; 
                                                 
-                                            case 21:
+                                            case 22:
                                                 try{
-                                                if (cell.getStringCellValue() != null){
+                                                    if (cell.getStringCellValue() != null){
                                                         strObs = cell.getStringCellValue();
                                                     }
                                                 }catch(IllegalStateException ise){
@@ -317,7 +347,8 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
                                                     }else{                    
                                                         strObs = "-";
                                                     }         
-                                                }                                                
+                                                }
+                                                System.out.println("strObs: " + strObs);
                                             break;
                                                 
                                     }                                                                        
@@ -353,6 +384,7 @@ public class NotificarVencimientoViaticosTiquetesAct implements Job{
 
                                             anticipoViaticoTiquete = new AnticipoViaticoTiquete();
                                             anticipoViaticoTiquete.setReserva(strReserva);
+                                            anticipoViaticoTiquete.setGrupo(strGrupo);
                                             anticipoViaticoTiquete.setSolicitante(strSolicitante);
                                             anticipoViaticoTiquete.setTipoSolicitud(strTipoSolicitud);
                                             anticipoViaticoTiquete.setNroComprobante(strNroComprobante);

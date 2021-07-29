@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class AnticipoViaticoTiquete {
     private String reserva;
+    private String grupo;
     private String solicitante;
     private String tipoSolicitud;
     private String nroComprobante;
@@ -89,6 +90,14 @@ public class AnticipoViaticoTiquete {
 
     public void setAccionNotificar(String accionNotificar) {
         this.accionNotificar = accionNotificar;
+    }
+    
+    public String getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
     }
 
     public String getReserva() {

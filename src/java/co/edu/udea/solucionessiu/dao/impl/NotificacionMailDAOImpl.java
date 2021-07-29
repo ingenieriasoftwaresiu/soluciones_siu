@@ -1001,7 +1001,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
     public void notificarVencimientoAnticipoViaticoTiquete(AnticipoViaticoTiquete anticipoViaticoTiquete) throws GIDaoException {
         
         String strNombreDestinatario=null, strEmailDestinatario=null, strReserva, strSolicitante, strTipoSolicitud, strNroComprobante, strAccionNotificar, strValorLegalizado, strFechaLimiteEntrega;
-        String strCodigoNotificacion=null, strObs, strResponsable, strLugarComision, strFechaInicioComision, strNroTicket;
+        String strCodigoNotificacion=null, strObs, strResponsable, strLugarComision, strFechaInicioComision, strNroTicket, strGrupo;
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         Notificacion notificacion = null;
                 
@@ -1020,6 +1020,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
         strLugarComision = "";
         strFechaInicioComision = "";
         strNroTicket = "";
+        strGrupo = "";
         
         try{
             notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
@@ -1032,7 +1033,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
 
             strNombreDestinatario = notificacion.getNombreDestinario().trim();         
             strEmailDestinatario = notificacion.getEmailDestinario().trim();
-            strReserva = anticipoViaticoTiquete.getReserva();
+            strReserva = anticipoViaticoTiquete.getReserva();            
             strSolicitante = anticipoViaticoTiquete.getSolicitante();
             strTipoSolicitud = anticipoViaticoTiquete.getTipoSolicitud();
             strNroComprobante = anticipoViaticoTiquete.getNroComprobante();
@@ -1044,6 +1045,10 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             strLugarComision = anticipoViaticoTiquete.getLugarComision().trim();
             strFechaInicioComision = anticipoViaticoTiquete.getFechaInicioComision().trim();
             strNroTicket = anticipoViaticoTiquete.getNroTicket().trim();
+            
+            if (strCodigoNotificacion.equals("ANTVIATTIQACT")){
+                strGrupo = anticipoViaticoTiquete.getGrupo();
+            }
             
             if ((strValorLegalizado != null) && (!strValorLegalizado.equals(""))){                
                 strValorLegalizado = "$" + funcionesComunesDAO.marcarMiles(strValorLegalizado);
@@ -1059,8 +1064,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                 this.strDestinatario = this.strEmailDllo;            
             }else{
                 this.strDestinatario = strEmailDestinatario;            
-            }                        
-            
+            }    
+                                   
             if (strAccionNotificar.equals("DIAVENC")){
                 this.strAsunto = "ALERTA: La solicitud de " + strTipoSolicitud.toUpperCase() + " con comprobante #" + strNroComprobante+ " ha cumplido la fecha límite de entrega";                 
             }
@@ -1072,6 +1077,11 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             this.strMensaje += "Cordial saludo.<br /><br />";
             this.strMensaje += "Los datos asociados con la solicitud de <b>" + strTipoSolicitud.toUpperCase() + "</b> con comprobante #" + strNroComprobante + " son:<br /><br />";
             this.strMensaje += "- <b>Nombre del responsable:</b> " + strResponsable.trim() + ".<br />";
+            
+            if (strCodigoNotificacion.equals("ANTVIATTIQACT")){
+                this.strMensaje += "- <b>Nombre del grupo:</b> " + strGrupo.trim() + ".<br />";
+            }
+                        
             this.strMensaje += "- <b>Nombre del solicitante:</b> " + strSolicitante.trim() + ".<br />";
             this.strMensaje += "- <b>Lugar de comisión:</b> " + strLugarComision.trim() + ".<br />";
             this.strMensaje += "- <b>Valor legalizado:</b> " + strValorLegalizado + ".<br />";
