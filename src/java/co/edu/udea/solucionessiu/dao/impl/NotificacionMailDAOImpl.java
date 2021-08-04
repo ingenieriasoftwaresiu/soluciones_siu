@@ -1064,7 +1064,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                 this.strDestinatario = this.strEmailDllo;            
             }else{
                 this.strDestinatario = strEmailDestinatario;            
-            }    
+            }               
                                    
             if (strAccionNotificar.equals("DIAVENC")){
                 this.strAsunto = "ALERTA: La solicitud de " + strTipoSolicitud.toUpperCase() + " con comprobante #" + strNroComprobante+ " ha cumplido la fecha límite de entrega";                 

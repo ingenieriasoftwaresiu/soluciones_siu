@@ -60,17 +60,21 @@ public class EnvioMailDAOimpl  implements EnvioMailDAO{
             mailSMTPServerPort = parametroGeneral.getNumeroPuerto().toString();
             mailSenha = parametroGeneral.getClaveConexion();
             from = parametroGeneral.getUsuarioConexion();
-                        
+            
+            // Se inhabilitan algunas configuraciones ya que se debe realizar relay a través del servidor SMTP de la universidad y no directamente a Gmail.
+                                              
             props.put("mail.transport.protocol","smtp");
-            props.put("mail.smtp.starttls.enable","true");
+            props.put("mail.smtp.starttls.enable","false");
+            //props.put("mail.smtp.starttls.enable","true");
             props.put("mail.smtp.host",mailSMTPServer);        
-            props.put("mail.smtp.auth","true");
-            props.put("mail.smtp.user",from);
+            props.put("mail.smtp.auth","false");
+            //props.put("mail.smtp.auth","true");
+            //props.put("mail.smtp.user",from);
             props.put("mail.smtp.debug","true");       
             props.put("mail.smtp.port",mailSMTPServerPort);                       
-            props.put("mail.smtp.socketFactory.port",mailSMTPServerPort);            
-            props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-            props.put("mail.smtp.socketFactory.fallback","false");
+            //props.put("mail.smtp.socketFactory.port",mailSMTPServerPort);            
+            //props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+            //props.put("mail.smtp.socketFactory.fallback","false");
         }
     }
 
@@ -121,7 +125,8 @@ public class EnvioMailDAOimpl  implements EnvioMailDAO{
                                               
         if (parametroGeneral != null){               
 
-            SimpleAuth auth = new SimpleAuth(from,mailSenha);           
+            SimpleAuth auth = new SimpleAuth(from,mailSenha);      
+            //Session session = Session.getDefaultInstance(props);
             Session session = Session.getDefaultInstance(props,auth);
             session.setDebug(false);
 
@@ -140,6 +145,7 @@ public class EnvioMailDAOimpl  implements EnvioMailDAO{
             Transport tr = null;
             try{                
                 tr = session.getTransport("smtp");
+                //tr.connect();
                 tr.connect(mailSMTPServer,from,mailSenha);
                 msg.saveChanges();
                 tr.sendMessage(msg, msg.getAllRecipients());
