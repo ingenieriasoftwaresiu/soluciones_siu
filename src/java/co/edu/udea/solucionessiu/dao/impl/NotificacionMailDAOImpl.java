@@ -61,7 +61,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                this.strEmailDllo = this.parametroGeneral.getEmailDllo().trim();
             }else{
                 this.strModoPdn = "N";
-                this.strEmailDllo = "ingenieria.software.siu@gmail.com";
+                this.strEmailDllo = "ingenieriasoftwaresiu@udea.edu.co";
             }
             
         }catch(GIDaoException e){
