@@ -1,0 +1,4 @@
+Los siguientes son los aspectos que se deben modificar para realizar el despliegue de la solución en Producción:
+
+1. Archivo confBD.xml (Web Pages/WEB-INF/) verificar que se encuentre sin comentarios la sección "CONFIGURACIÓN DEL AMBIENTE DE PRODUCCIÓN" y las demás con comentarios.
+2. Archivo JDBCConnectionPool.java (Source Packages/co.edu.udea.parametrossigep.dao.cnf/) verificar que la sección "/*SIU-WEB*/" se encuentre sin comentarios y las demás con comentarios.
