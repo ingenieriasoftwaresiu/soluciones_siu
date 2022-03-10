@@ -33,6 +33,7 @@ public class JDBCConnectionPool {
     private static final String TAG_URL = "url";
     private static final String TAG_USER = "userBD";
     private static final String TAG_PASSWORD = "passwdBD";
+    private String strIdBaseDatos;       
     
     /*SIU-WEB1*/
     //private static final String RUTA_XML = "D:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps\\parametros_sigep\\WEB-INF\\confBD.xml";
@@ -51,15 +52,17 @@ public class JDBCConnectionPool {
     
     /*GEORGE*/
      //private static final String RUTA_XML = "C:\\WebApps\\facturacion_servicios\\parametros_sigep\\web\\WEB-INF\\confBD.xml";
-        
-    public Connection getConexion() throws GIDaoException{
+             
+    public Connection getConexion(String strIdBD) throws GIDaoException{
         
         Connection cn = null;
         String[] strDatos = null;
         String strDriver;
         String strURL;
         String strLogin;
-        String strPwd;
+        String strPwd;          
+        
+        this.strIdBaseDatos = strIdBD;
         
         try{            
             
@@ -100,7 +103,7 @@ public class JDBCConnectionPool {
             // normalize text representation
             doc.getDocumentElement ().normalize ();
             
-            NodeList listOfPersons = doc.getElementsByTagName(BASE_DATOS);     
+            NodeList listOfPersons = doc.getElementsByTagName(this.strIdBaseDatos);     
             Node firstPersonNode = listOfPersons.item(0);
             
             if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){

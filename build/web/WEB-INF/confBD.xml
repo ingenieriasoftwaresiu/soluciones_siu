@@ -3,34 +3,70 @@
 <!--CONFIGURACIÓN DEL AMBIENTE DE DESARROLLO-->
 
 <soluciones>
-        <bd>
+        <siuweb>
             <driver>com.mysql.jdbc.Driver</driver>
             <url>jdbc:mysql://localhost:3306/soluciones_siu</url>
             <userBD>admin</userBD>
             <passwdBD>2Lb2s4d2l14c1</passwdBD>
-        </bd>
+        </siuweb>
+        <sigep>
+            <driver>com.mysql.jdbc.Driver</driver>
+            <url>jdbc:mysql://localhost:3306/sigap</url>
+            <userBD>admin</userBD>
+            <passwdBD>2Lb2s4d2l14c1</passwdBD>
+        </sigep>
+        <totalproyectos>
+            <driver>com.mysql.jdbc.Driver</driver>
+            <url>jdbc:mysql://localhost:3306/totalproyectos</url>
+            <userBD>admin</userBD>
+            <passwdBD>2Lb2s4d2l14c1</passwdBD>
+        </totalproyectos>
 </soluciones>
 
 <!--CONFIGURACIÓN DEL AMBIENTE DE PRUEBAS-->
 <!--
 <soluciones>
-        <bd>
+        <siuweb>
             <driver>com.mysql.jdbc.Driver</driver>
             <url>jdbc:mysql://172.30.200.11:3306/soluciones_siu</url>
             <userBD>admin</userBD>
             <passwdBD>2Lb2s4d2l14c1</passwdBD>
-        </bd>
+        </siuweb>
+        <sigep>
+            <driver>com.mysql.jdbc.Driver</driver>
+            <url>jdbc:mysql://172.30.200.11:3306/sigap</url>
+            <userBD>admin</userBD>
+            <passwdBD>2Lb2s4d2l14c1</passwdBD>
+        </sigep>
+        <totalproyectos>
+            <driver>com.mysql.jdbc.Driver</driver>
+            <url>jdbc:mysql://172.30.200.11:3306/totalproyectos</url>
+            <userBD>admin</userBD>
+            <passwdBD>2Lb2s4d2l14c1</passwdBD>
+        </totalproyectos>
 </soluciones>
 -->
 
 <!--CONFIGURACIÓN DEL AMBIENTE DE PRODUCCIÓN-->
 <!--
 <soluciones>
-        <bd>
+        <siuweb>
             <driver>com.mysql.jdbc.Driver</driver>
             <url>jdbc:mysql://172.30.100.38:3306/soluciones_siu</url>
             <userBD>admin</userBD>
             <passwdBD>2Lb2s4d2l14c1</passwdBD>
-        </bd>
+        </siuweb>
+        <sigep>
+            <driver>com.mysql.jdbc.Driver</driver>
+            <url>jdbc:mysql://172.30.100.37:3306/sigap</url>
+            <userBD>admin</userBD>
+            <passwdBD>2Lb2s4d2l14c1</passwdBD>
+        </sigep>
+        <totalproyectos>
+            <driver>com.mysql.jdbc.Driver</driver>
+            <url>jdbc:mysql://172.30.100.50:3306/totalproyectos</url>
+            <userBD>admin</userBD>
+            <passwdBD>2Lb2s4d2l14c1</passwdBD>
+        </totalproyectos>
 </soluciones>
 -->

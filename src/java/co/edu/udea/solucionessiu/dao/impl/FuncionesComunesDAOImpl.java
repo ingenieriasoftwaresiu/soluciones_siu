@@ -333,9 +333,10 @@ public class FuncionesComunesDAOImpl extends JDBCConnectionPool implements Funci
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
+        String strIdBD = "siuweb";
              
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(strSQL);
             
             rs = ps.executeQuery();

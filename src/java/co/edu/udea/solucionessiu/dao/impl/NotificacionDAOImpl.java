@@ -37,9 +37,10 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
         PreparedStatement ps = null;
         ResultSet rs = null;
         Notificacion notificacion = null;
+        String strIdBD = "siuweb";
         
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(OBTENER_UNO);
             ps.setString(1, strCodigo);
             

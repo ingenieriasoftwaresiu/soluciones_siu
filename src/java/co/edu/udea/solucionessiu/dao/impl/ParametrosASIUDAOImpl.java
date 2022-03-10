@@ -44,9 +44,10 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
         PreparedStatement ps = null;
         ResultSet rs = null;
         Proceso proceso = null;
+        String strIdBD = "siuweb";
         
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(OBTENER_PROCESO_X_ID);
             ps.setString(1, strCodigo);
             
@@ -90,9 +91,10 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
         PreparedStatement ps = null;
         ResultSet rs = null;
         Persona persona = null;
+        String strIdBD = "siuweb";
         
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(OBTENER_PERSONA_X_ID);
             ps.setString(1, strCodigo);
             
@@ -137,9 +139,10 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
         PreparedStatement ps = null;
         ResultSet rs = null;
         Coordinacion coordinacion = null;
+        String strIdBD = "siuweb";
         
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(OBTENER_COORDINACION_X_ID);
             ps.setString(1, strCodigo);
             
@@ -183,9 +186,10 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
         PreparedStatement ps = null;
         ResultSet rs = null;
         Persona persona = null;
+        String strIdBD = "siuweb";
         
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(OBTENER_PERSONA_X_CARGO);
             ps.setString(1, strIdCargo);
             
@@ -230,9 +234,10 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
         PreparedStatement ps = null;
         ResultSet rs = null;
         String strIdJefeInmediato = null;
+        String strIdBD = "siuweb";
         
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(OBTENER_JEFE_INMEDIATO_X_ID_EMPLEADO);
             ps.setString(1, strIdEmpleado);
             
@@ -273,9 +278,10 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
         PreparedStatement ps = null;
         ResultSet rs = null;
         String strIdJefeInmediato = null;
+        String strIdBD = "siuweb";
         
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(OBTENER_JEFE_INMEDIATO_X_CARGO_EMPLEADO);
             ps.setString(1, strIdCargo);
             

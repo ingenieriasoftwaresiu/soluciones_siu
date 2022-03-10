@@ -38,9 +38,10 @@ public class ParametroGeneralDAOImpl extends JDBCConnectionPool implements Param
         PreparedStatement ps = null;
         ResultSet rs = null;
         ParametroGeneral parametroGeneral = null;
+        String strIdBD = "siuweb";
         
         try{
-            con = getConexion();
+            con = getConexion(strIdBD);
             ps = con.prepareCall(OBTENER_PARAMETROS_GENERALES);
             ps.setString(1, CODIGO_FORM);
             
