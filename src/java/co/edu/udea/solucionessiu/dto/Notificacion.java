@@ -19,6 +19,15 @@ public class Notificacion {
     private Integer diasNotificar;
     private Integer diasDespuesNotificar;
     private String nombreHoja;
+    private Integer diasPreviosNotificacion;
+
+    public Integer getDiasPreviosNotificacion() {
+        return diasPreviosNotificacion;
+    }
+
+    public void setDiasPreviosNotificacion(Integer diasPreviosNotificacion) {
+        this.diasPreviosNotificacion = diasPreviosNotificacion;
+    }
 
     public String getNombreHoja() {
         return nombreHoja;
