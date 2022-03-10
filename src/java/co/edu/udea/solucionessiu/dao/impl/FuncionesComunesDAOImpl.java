@@ -29,6 +29,8 @@ import java.util.Vector;
  * @author George
  */
 public class FuncionesComunesDAOImpl extends JDBCConnectionPool implements FuncionesComunesDAO{
+    
+    private static final String ID_BASE_DATOS = "siuweb";
 
     @Override
     public Calendar incrementarDiasHabiles(Calendar fechaInicial, int intNroDias) {
@@ -332,11 +334,10 @@ public class FuncionesComunesDAOImpl extends JDBCConnectionPool implements Funci
         String COLUMNA_FECHA = "dtFecha";
         Connection con = null;
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        String strIdBD = "siuweb";
+        ResultSet rs = null;     
              
         try{
-            con = getConexion(strIdBD);
+            con = getConexion(ID_BASE_DATOS);
             ps = con.prepareCall(strSQL);
             
             rs = ps.executeQuery();
