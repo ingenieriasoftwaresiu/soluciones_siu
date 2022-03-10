@@ -15,4 +15,5 @@ import co.edu.udea.solucionessiu.exception.GIDaoException;
  */
 public interface ParametroGeneralDAO {
     public ParametroGeneral obtenerParametrosGenerales() throws GIDaoException;
+    public Boolean verificarNotificacionProyecto(String strIdProyecto) throws GIDaoException;
 }

@@ -83,5 +83,10 @@ public class ParametroGeneralDAOImpl extends JDBCConnectionPool implements Param
         
         return parametroGeneral;
     }
+
+    @Override
+    public Boolean verificarNotificacionProyecto(String strIdProyecto) throws GIDaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
         
 }

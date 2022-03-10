@@ -12,6 +12,7 @@ import co.edu.udea.solucionessiu.dao.NotificacionMailDAO;
 import co.edu.udea.solucionessiu.dao.ParametroGeneralDAO;
 import co.edu.udea.solucionessiu.dao.ParametrosASIUDAO;
 import co.edu.udea.solucionessiu.dto.Accion;
+import co.edu.udea.solucionessiu.dto.Actividad;
 import co.edu.udea.solucionessiu.dto.AnticipoViaticoTiquete;
 import co.edu.udea.solucionessiu.dto.Calibracion;
 import co.edu.udea.solucionessiu.dto.CalibracionEquipo;
@@ -22,13 +23,16 @@ import co.edu.udea.solucionessiu.dto.Coordinacion;
 import co.edu.udea.solucionessiu.dto.Correccion;
 import co.edu.udea.solucionessiu.dto.Documento;
 import co.edu.udea.solucionessiu.dto.Eficacia;
+import co.edu.udea.solucionessiu.dto.EjecucionPptalProyecto;
 import co.edu.udea.solucionessiu.dto.EquipoMnto;
 import co.edu.udea.solucionessiu.dto.MntoPrtvoEqCi;
+import co.edu.udea.solucionessiu.dto.Movimiento;
 import co.edu.udea.solucionessiu.dto.Notificacion;
 import co.edu.udea.solucionessiu.dto.ParametroGeneral;
 import co.edu.udea.solucionessiu.dto.ParametroMail;
 import co.edu.udea.solucionessiu.dto.Pedido;
 import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.Proyecto;
 import co.edu.udea.solucionessiu.dto.RegistroPlanCalibracion;
 import co.edu.udea.solucionessiu.dto.RegistroPlanMejoramiento;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
@@ -1608,5 +1612,25 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             new GIDaoException("Notificación enviada correctamente a " + strNomDestinario + " al correo electrónico " + this.strDestinatario + " con " + intTotalFacturas.toString() + " facturas!.");
               
         }
+    }
+
+    @Override
+    public void notificarVencimientoProyecto(String strAccion, Proyecto proyecto, List<EjecucionPptalProyecto> ejecucionPptal, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto) throws GIDaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void notificarRegalias(List<String> participantes) throws GIDaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void notificarActividades(Actividad actividad, String strAccionNotificar) throws GIDaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void notificarReservas(List<Movimiento> movimientos, String strCodNotificacion) throws GIDaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

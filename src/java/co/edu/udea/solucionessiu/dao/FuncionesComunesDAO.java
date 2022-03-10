@@ -38,5 +38,5 @@ public interface FuncionesComunesDAO {
     public String reemplazarUltimoCaracterCadena(String strCadena);
     public Boolean tieneDecimales(BigDecimal bdValor);
     public String convertirFechaLarga(String strFecha);
-    public String convertirNotacionEACadena(double valor);
+    public String convertirNotacionEACadena(double valor);                 
 }

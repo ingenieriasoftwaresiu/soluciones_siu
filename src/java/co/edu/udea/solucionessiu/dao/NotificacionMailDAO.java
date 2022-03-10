@@ -6,15 +6,20 @@
 
 package co.edu.udea.solucionessiu.dao;
 
+import co.edu.udea.solucionessiu.dto.Actividad;
 import co.edu.udea.solucionessiu.dto.AnticipoViaticoTiquete;
 import co.edu.udea.solucionessiu.dto.CalibracionEquipo;
 import co.edu.udea.solucionessiu.dto.Cartera;
 import co.edu.udea.solucionessiu.dto.Contrato;
 import co.edu.udea.solucionessiu.dto.ControlInsumo;
 import co.edu.udea.solucionessiu.dto.Documento;
+import co.edu.udea.solucionessiu.dto.EjecucionPptalProyecto;
 import co.edu.udea.solucionessiu.dto.EquipoMnto;
 import co.edu.udea.solucionessiu.dto.MntoPrtvoEqCi;
+import co.edu.udea.solucionessiu.dto.Movimiento;
 import co.edu.udea.solucionessiu.dto.Pedido;
+import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.Proyecto;
 import co.edu.udea.solucionessiu.dto.RegistroPlanCalibracion;
 import co.edu.udea.solucionessiu.dto.RegistroPlanMejoramiento;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
@@ -37,4 +42,10 @@ public interface NotificacionMailDAO {
     public void notificarControlInsumos(ControlInsumo controlInsumo) throws GIDaoException;
     public void notificarEquiposMnto(List<EquipoMnto> equipos, String strCodNotificacion)  throws GIDaoException;
     public void notificarVencimientoCartera(List<Cartera> carteras) throws GIDaoException;
+    // Se inhabilita notificación a la Coordinadora de Compras.
+    //public void notificarVencimientoProyecto(String strAccion, Proyecto proyecto, List<EjecucionPptalProyecto> ejecucionPptal, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto, Persona coordCompras) throws GIDaoException;
+    public void notificarVencimientoProyecto(String strAccion, Proyecto proyecto, List<EjecucionPptalProyecto> ejecucionPptal, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto) throws GIDaoException;
+    public void notificarRegalias(List<String> participantes) throws GIDaoException;
+    public void notificarActividades(Actividad actividad, String strAccionNotificar) throws GIDaoException;
+    public void notificarReservas(List<Movimiento> movimientos, String strCodNotificacion)  throws GIDaoException;
 }
