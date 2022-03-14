@@ -41,7 +41,7 @@ public class ProgramacionNotificarVencimientoCalibracionLEC {
             // Se crea el trigger para ejecución el último día del mes a las 07:15 a.m.  
              Trigger trigger = new CronTrigger("NotificarVencimientoCalibracionLECTrigger", Scheduler.DEFAULT_GROUP, "15 07 00 L * ?");
              trigger.setName("tgNotificarVencimientoCalibracionLEC");
-             trigger.setGroup("grupoSIU");
+             trigger.setGroup("grupoSIUWEB");
              trigger.setPriority(1);
                                                   
              intError = 3;

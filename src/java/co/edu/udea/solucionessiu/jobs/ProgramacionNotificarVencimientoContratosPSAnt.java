@@ -40,7 +40,7 @@ public class ProgramacionNotificarVencimientoContratosPSAnt {
             // Se crea el trigger para ejecución todos los días.            
              Trigger trigger = TriggerUtils.makeDailyTrigger(6, 10);
              trigger.setName("tgNotificarVencimientoContratosPSAnt");
-             trigger.setGroup("grupoSIU");
+             trigger.setGroup("grupoSIUWEB");
              trigger.setPriority(1);
                                                   
              intError = 3;

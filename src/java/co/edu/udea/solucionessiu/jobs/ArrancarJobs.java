@@ -39,6 +39,10 @@ public class ArrancarJobs implements ServletContextListener {
             new ProgramacionNotificarControlInsumos().crearProgramacion();
             new ProgramacionNotificarVencimientoPlanMntoSIU().crearProgramacion();
             new ProgramacionNotificarVencimientoCartera().crearProgramacion();
+            new ProgramacionNotificarVencimientoProyectos().crearProgramacion();
+            //new ProgramacionNotificarRegalias().crearProgramacion(); // 2018-02-13: Se desactiva a petición de Felipe Medina.
+            new ProgramacionNotificarActividades().crearProgramacion();
+            new ProgramacionNotificarReservas().crearProgramacion();
         }catch (Exception ex) {
             new GIDaoException("Se generó un error al arrancar los jobs de la aplicación", ex);
         }

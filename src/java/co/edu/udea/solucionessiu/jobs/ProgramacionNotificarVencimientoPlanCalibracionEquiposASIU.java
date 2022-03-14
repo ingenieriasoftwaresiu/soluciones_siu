@@ -40,7 +40,7 @@ public class ProgramacionNotificarVencimientoPlanCalibracionEquiposASIU {
             // Se crea el trigger para ejecución todos los días.            
              Trigger trigger = TriggerUtils.makeDailyTrigger(4, 30);
              trigger.setName("tgNotificarVencimientoPlanCalibracionEquiposASIU");
-             trigger.setGroup("grupoSIU");
+             trigger.setGroup("grupoSIUWEB");
              trigger.setPriority(1);
                                                   
              intError = 3;

@@ -39,7 +39,7 @@ public class ProgramacionNotificarVencimientoMntoPretvoEqCi {
             // Se crea el trigger para ejecución el último día del mes a las 07:30 a.m.  
              Trigger trigger = new CronTrigger("NotificarVencimientoMntoPretvoEqCiTrigger", Scheduler.DEFAULT_GROUP, "30 07 00 L * ?");
              trigger.setName("tgNotificarVencimientoMntoPretvoEqCi");
-             trigger.setGroup("grupoSIU");
+             trigger.setGroup("grupoSIUWEB");
              trigger.setPriority(1);
                                                   
              intError = 3;

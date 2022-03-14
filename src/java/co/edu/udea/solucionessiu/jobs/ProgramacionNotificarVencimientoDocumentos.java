@@ -40,7 +40,7 @@ public class ProgramacionNotificarVencimientoDocumentos {
             // Se crea el trigger para ejecución todos los días.            
              Trigger trigger = TriggerUtils.makeDailyTrigger(4, 00);
              trigger.setName("tgNotificarVencimientoDocumentos");
-             trigger.setGroup("grupoSIU");
+             trigger.setGroup("grupoSIUWEB");
              trigger.setPriority(1);
                                                   
              intError = 3;

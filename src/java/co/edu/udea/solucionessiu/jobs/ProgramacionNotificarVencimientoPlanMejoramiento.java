@@ -39,7 +39,7 @@ public class ProgramacionNotificarVencimientoPlanMejoramiento {
             // Se crea el trigger para ejecución todos los días.            
              Trigger trigger = TriggerUtils.makeDailyTrigger(4, 15);
              trigger.setName("tgNotificarVencimientoPlanMejoramiento");
-             trigger.setGroup("grupoSIU");
+             trigger.setGroup("grupoSIUWEB");
              trigger.setPriority(1);
                                                   
              intError = 3;

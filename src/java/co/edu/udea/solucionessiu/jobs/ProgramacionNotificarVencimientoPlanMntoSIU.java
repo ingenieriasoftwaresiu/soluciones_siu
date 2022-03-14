@@ -40,7 +40,7 @@ public class ProgramacionNotificarVencimientoPlanMntoSIU {
             // Se crea el trigger para ejecución el primer día del mes a las 06:45 a.m.  
              Trigger trigger = new CronTrigger("NotificarVencimientoPlanMntoSIUTrigger", Scheduler.DEFAULT_GROUP, "00 45 06 1 * ?");
              trigger.setName("tgNotificarVencimientoPlanMntoSIU");
-             trigger.setGroup("grupoSIU");
+             trigger.setGroup("grupoSIUWEB");
              trigger.setPriority(1);
                                                   
              intError = 3;

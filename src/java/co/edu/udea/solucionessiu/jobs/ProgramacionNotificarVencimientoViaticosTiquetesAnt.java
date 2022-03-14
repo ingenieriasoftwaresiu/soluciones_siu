@@ -40,7 +40,7 @@ public class ProgramacionNotificarVencimientoViaticosTiquetesAnt {
             // Se crea el trigger para ejecución todos los días.            
              Trigger trigger = TriggerUtils.makeDailyTrigger(5, 30);
              trigger.setName("tgNotificarVencimientoViaticosTiquetesAnt");
-             trigger.setGroup("grupoSIU");
+             trigger.setGroup("grupoSIUWEB");
              trigger.setPriority(1);
                                                   
              intError = 3;
