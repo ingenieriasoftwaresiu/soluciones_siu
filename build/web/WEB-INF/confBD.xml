@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <!--CONFIGURACIÓN DEL AMBIENTE DE DESARROLLO-->
-
+<!--
 <soluciones>
         <siuweb>
             <driver>com.mysql.jdbc.Driver</driver>
@@ -22,7 +22,7 @@
             <passwdBD>2Lb2s4d2l14c1</passwdBD>
         </totalproyectos>
 </soluciones>
-
+-->
 <!--CONFIGURACIÓN DEL AMBIENTE DE PRUEBAS-->
 <!--
 <soluciones>
@@ -48,7 +48,7 @@
 -->
 
 <!--CONFIGURACIÓN DEL AMBIENTE DE PRODUCCIÓN-->
-<!--
+
 <soluciones>
         <siuweb>
             <driver>com.mysql.jdbc.Driver</driver>
@@ -69,4 +69,3 @@
             <passwdBD>2Lb2s4d2l14c1</passwdBD>
         </totalproyectos>
 </soluciones>
--->

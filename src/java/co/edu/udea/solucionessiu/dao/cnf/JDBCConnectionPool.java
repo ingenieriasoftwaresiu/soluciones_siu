@@ -27,31 +27,21 @@ import org.xml.sax.SAXParseException;
  * @author George
  */
 public class JDBCConnectionPool {
-    
-    private static final String BASE_DATOS = "bd";
+        
     private static final String TAG_DRIVER = "driver";
     private static final String TAG_URL = "url";
     private static final String TAG_USER = "userBD";
     private static final String TAG_PASSWORD = "passwdBD";
     private String strIdBaseDatos;       
-    
-    /*SIU-WEB1*/
-    //private static final String RUTA_XML = "D:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps\\parametros_sigep\\WEB-INF\\confBD.xml";
-    
+        
     /*SIU-WEB*/
-   //private static final String RUTA_XML = "C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0_Tomcat7041\\webapps\\soluciones_siu\\WEB-INF\\confBD.xml";
+   private static final String RUTA_XML = "C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0_Tomcat7041\\webapps\\soluciones_siu\\WEB-INF\\confBD.xml";
     
     /*ING-SOFTWARE*/
-   private static final String RUTA_XML = "C:\\WebApps\\soluciones_siu\\web\\WEB-INF\\confBD.xml";    
+   //private static final String RUTA_XML = "C:\\WebApps\\soluciones_siu\\web\\WEB-INF\\confBD.xml";    
     
      /*SIU-PRUEBAS*/
     //private static final String RUTA_XML = "C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\webapps\\soluciones_siu\\WEB-INF\\confBD.xml";
-    
-    /*ING-SOFTWARE APACHE TOMCAT 7*/    
-    //private static final String RUTA_XML = "C:\\apache-tomcat-7.0.29\\webapps\\parametros_sigep\\WEB-INF\\confBD.xml";
-    
-    /*GEORGE*/
-     //private static final String RUTA_XML = "C:\\WebApps\\facturacion_servicios\\parametros_sigep\\web\\WEB-INF\\confBD.xml";
              
     public Connection getConexion(String strIdBD) throws GIDaoException{
         
