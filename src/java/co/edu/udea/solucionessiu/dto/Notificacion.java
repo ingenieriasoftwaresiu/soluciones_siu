@@ -14,12 +14,29 @@ public class Notificacion {
     private String codigo;
     private String nombre;
     private String ruta;
-    private String nombreDestinario;
-    private String emailDestinario;
+    private String nombreDestinatario;
+    private String emailDestinatario;
     private Integer diasNotificar;
     private Integer diasDespuesNotificar;
     private String nombreHoja;
     private Integer diasPreviosNotificacion;
+
+    public String getNombreDestinatario() {
+        return nombreDestinatario;
+    }
+
+    public void setNombreDestinatario(String nombreDestinatario) {
+        this.nombreDestinatario = nombreDestinatario;
+    }
+
+    public String getEmailDestinatario() {
+        return emailDestinatario;
+    }
+
+    public void setEmailDestinatario(String emailDestinatario) {
+        this.emailDestinatario = emailDestinatario;
+    }
+    
 
     public Integer getDiasPreviosNotificacion() {
         return diasPreviosNotificacion;
@@ -68,23 +85,7 @@ public class Notificacion {
     public void setRuta(String ruta) {
         this.ruta = ruta;
     }
-
-    public String getNombreDestinario() {
-        return nombreDestinario;
-    }
-
-    public void setNombreDestinario(String nombreDestinario) {
-        this.nombreDestinario = nombreDestinario;
-    }
-
-    public String getEmailDestinario() {
-        return emailDestinario;
-    }
-
-    public void setEmailDestinario(String emailDestinario) {
-        this.emailDestinario = emailDestinario;
-    }
-
+   
     public Integer getDiasNotificar() {
         return diasNotificar;
     }

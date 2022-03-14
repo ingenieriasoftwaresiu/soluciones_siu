@@ -8,11 +8,9 @@ package co.edu.udea.solucionessiu.dao.impl;
 
 import co.edu.udea.solucionessiu.dao.FuncionesComunesDAO;
 import co.edu.udea.solucionessiu.dao.NotificacionDAO;
-import co.edu.udea.solucionessiu.dao.NotificacionMailDAO;
 import co.edu.udea.solucionessiu.dao.ParametroGeneralDAO;
 import co.edu.udea.solucionessiu.dao.ParametrosASIUDAO;
 import co.edu.udea.solucionessiu.dto.Accion;
-import co.edu.udea.solucionessiu.dto.Actividad;
 import co.edu.udea.solucionessiu.dto.AnticipoViaticoTiquete;
 import co.edu.udea.solucionessiu.dto.Calibracion;
 import co.edu.udea.solucionessiu.dto.CalibracionEquipo;
@@ -23,42 +21,41 @@ import co.edu.udea.solucionessiu.dto.Coordinacion;
 import co.edu.udea.solucionessiu.dto.Correccion;
 import co.edu.udea.solucionessiu.dto.Documento;
 import co.edu.udea.solucionessiu.dto.Eficacia;
-import co.edu.udea.solucionessiu.dto.EjecucionPptalProyecto;
 import co.edu.udea.solucionessiu.dto.EquipoMnto;
 import co.edu.udea.solucionessiu.dto.MntoPrtvoEqCi;
-import co.edu.udea.solucionessiu.dto.Movimiento;
 import co.edu.udea.solucionessiu.dto.Notificacion;
 import co.edu.udea.solucionessiu.dto.ParametroGeneral;
 import co.edu.udea.solucionessiu.dto.ParametroMail;
 import co.edu.udea.solucionessiu.dto.Pedido;
 import co.edu.udea.solucionessiu.dto.Persona;
-import co.edu.udea.solucionessiu.dto.Proyecto;
 import co.edu.udea.solucionessiu.dto.RegistroPlanCalibracion;
 import co.edu.udea.solucionessiu.dto.RegistroPlanMejoramiento;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.util.Date;
 import java.util.List;
+import co.edu.udea.solucionessiu.dao.NotificacionMailSiuWebDAO;
 
 /**
  *
  * @author jorge.correa
  */
-public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements NotificacionMailDAO{
+public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements NotificacionMailSiuWebDAO{
     private ParametroMail parametroMail;
     private String strDestinatario;
     private String strAsunto;
     private String strMensaje;
     private String strRutaArchivo;
     ParametroGeneral parametroGeneral;
+    private ParametroGeneralDAO parametroGeneralDAO;
     private String strModoPdn;
     private String  strEmailDllo;   
     
-    public NotificacionMailDAOImpl(){
+    public NotificacionMailSiuWebDAOImpl(){
         ParametroGeneralDAO parametroGeneralDAO = new ParametroGeneralDAOImpl();
         this.parametroGeneral = null;
         
         try{
-            this.parametroGeneral = parametroGeneralDAO.obtenerParametrosGenerales();
+            this.parametroGeneral = parametroGeneralDAO.obtenerParametrosGeneralesSiuWeb();
             
             if (this.parametroGeneral != null){
                this.strModoPdn = this.parametroGeneral.getModoProduccion().trim();
@@ -93,8 +90,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
         
         if (notificacion != null){            
 
-            strNombreDestinatario = notificacion.getNombreDestinario().trim();         
-            strEmailDestinatario = notificacion.getEmailDestinario().trim();
+            strNombreDestinatario = notificacion.getNombreDestinatario().trim();         
+            strEmailDestinatario = notificacion.getEmailDestinatario().trim();
             lgNumDiasDiferencia = pedido.getDiasDiferencia();
             strGrupo = pedido.getNombreGrupo();
             strNumPedido = pedido.getNumeroPedido();
@@ -333,8 +330,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                                     
                                     // No encontró el jefe inmediato del responsable o se trata de un responsable general: Comité de Calidad, Coordinadores ASIU. Notifica al responsable por defecto.
                                     
-                                    strNomRespCorreccion = notificacion.getNombreDestinario().trim();
-                                    strEmailRespCorreccion = notificacion.getEmailDestinario().trim();
+                                    strNomRespCorreccion = notificacion.getNombreDestinatario().trim();
+                                    strEmailRespCorreccion = notificacion.getEmailDestinatario().trim();
                                 }                                                                
                             }                            
 
@@ -431,8 +428,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                                     
                                     // No encontró el jefe inmediato del responsable o se trata de un responsable general: Comité de Calidad, Coordinadores ASIU. Notifica al responsable por defecto.
                                     
-                                    strNomRespAccion = notificacion.getNombreDestinario().trim();
-                                    strEmailRespAccion = notificacion.getEmailDestinario().trim();
+                                    strNomRespAccion = notificacion.getNombreDestinatario().trim();
+                                    strEmailRespAccion = notificacion.getEmailDestinatario().trim();
                                 }                                
                             }
 
@@ -569,8 +566,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                                 strNomRespCalibracion = persona.getNombreCompleto();
                                 strEmailRespCalibracion = persona.getCorreoInstitucional();
                             }else{
-                                strNomRespCalibracion = notificacion.getNombreDestinario().trim();
-                                strEmailRespCalibracion = notificacion.getEmailDestinario().trim();
+                                strNomRespCalibracion = notificacion.getNombreDestinatario().trim();
+                                strEmailRespCalibracion = notificacion.getEmailDestinatario().trim();
                             }
                                                         
                             if (this.strModoPdn.equals("N")){
@@ -622,7 +619,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
     @Override
     public void notificarVencimientoContrato(Contrato contrato) throws GIDaoException {
         
-        String strCodigoNotificacion, strTipoContrato, strFirma, strNomDestinario, strCodigoContrato, strAccionNotificar, strFechaFinalizacion, strGrupo, strContratista;     
+        String strCodigoNotificacion, strTipoContrato, strFirma, strNomDestinatario, strCodigoContrato, strAccionNotificar, strFechaFinalizacion, strGrupo, strContratista;     
         Notificacion notificacion = null;
         strCodigoNotificacion = "";
         strFechaFinalizacion = null;
@@ -667,10 +664,10 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             if (this.strModoPdn.equals("N")){
                 this.strDestinatario = this.strEmailDllo;            
             }else{
-                this.strDestinatario = notificacion.getEmailDestinario().trim();            
+                this.strDestinatario = notificacion.getEmailDestinatario().trim();            
             }
             
-            strNomDestinario = notificacion.getNombreDestinario();
+            strNomDestinatario = notificacion.getNombreDestinatario();
             strCodigoContrato = contrato.getCodigoContrato();
             strFechaFinalizacion = contrato.getFechaTerminacion();
             strAccionNotificar = contrato.getAccionNotificar();
@@ -681,7 +678,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                 strCodigoContrato = "[Sin código]";
             }
                                                           
-            this.strMensaje += "Cordial saludo Sr(a). <b>" + strNomDestinario + "</b>.<br /><br />";       
+            this.strMensaje += "Cordial saludo Sr(a). <b>" + strNomDestinatario + "</b>.<br /><br />";       
             
              if ((strTipoContrato.equals("NALANT")) || (strTipoContrato.equals("NALACT"))){                 
                 if (strAccionNotificar.equals("DIAVENC")){
@@ -731,15 +728,15 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             sendMailHTML(this.parametroMail);
             
             if ((strTipoContrato.equals("NALANT")) || (strTipoContrato.equals("NALACT"))){
-                new GIDaoException("Notificación enviada correctamente a " + strNomDestinario + " al correo electrónico " + this.strDestinatario + " para el contrato nacional con código " + strCodigoContrato);
+                new GIDaoException("Notificación enviada correctamente a " + strNomDestinatario + " al correo electrónico " + this.strDestinatario + " para el contrato nacional con código " + strCodigoContrato);
             }   
             
              if (strTipoContrato.equals("INTERNAL")){                 
-                new GIDaoException("Notificación enviada correctamente a " + strNomDestinario + " al correo electrónico " + this.strDestinatario + " para el contrato internacional con código " + strCodigoContrato);
+                new GIDaoException("Notificación enviada correctamente a " + strNomDestinatario + " al correo electrónico " + this.strDestinatario + " para el contrato internacional con código " + strCodigoContrato);
             }   
              
              if (strTipoContrato.equals("PS")){                 
-                new GIDaoException("Notificación enviada correctamente a " + strNomDestinario + " al correo electrónico " + this.strDestinatario + " para el contrato de prestación de servicios con código " + strCodigoContrato);
+                new GIDaoException("Notificación enviada correctamente a " + strNomDestinatario + " al correo electrónico " + this.strDestinatario + " para el contrato de prestación de servicios con código " + strCodigoContrato);
             }   
         }
     }
@@ -824,8 +821,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                                     
                                     // No encontró el jefe inmediato del responsable o se trata de un responsable general: Comité de Calidad, Coordinadores ASIU. Notifica al responsable por defecto.
                                     
-                                    strNomRespCorreccion = notificacion.getNombreDestinario().trim();
-                                    strEmailRespCorreccion = notificacion.getEmailDestinario().trim();
+                                    strNomRespCorreccion = notificacion.getNombreDestinatario().trim();
+                                    strEmailRespCorreccion = notificacion.getEmailDestinatario().trim();
                                 }                                                                
                             }                            
 
@@ -922,8 +919,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                                     
                                     // No encontró el jefe inmediato del responsable o se trata de un responsable general: Comité de Calidad, Coordinadores ASIU. Notifica al responsable por defecto.
                                     
-                                    strNomRespAccion = notificacion.getNombreDestinario().trim();
-                                    strEmailRespAccion = notificacion.getEmailDestinario().trim();
+                                    strNomRespAccion = notificacion.getNombreDestinatario().trim();
+                                    strEmailRespAccion = notificacion.getEmailDestinatario().trim();
                                 }                                
                             }
 
@@ -1035,8 +1032,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
         
         if (notificacion != null){            
 
-            strNombreDestinatario = notificacion.getNombreDestinario().trim();         
-            strEmailDestinatario = notificacion.getEmailDestinario().trim();
+            strNombreDestinatario = notificacion.getNombreDestinatario().trim();         
+            strEmailDestinatario = notificacion.getEmailDestinatario().trim();
             strReserva = anticipoViaticoTiquete.getReserva();            
             strSolicitante = anticipoViaticoTiquete.getSolicitante();
             strTipoSolicitud = anticipoViaticoTiquete.getTipoSolicitud();
@@ -1319,8 +1316,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                                strNomResp = persona.getNombreCompleto();
                                strEmailResp= persona.getCorreoInstitucional();
                            }else{                           
-                               strNomResp = notificacion.getNombreDestinario();
-                               strEmailResp = notificacion.getEmailDestinario();
+                               strNomResp = notificacion.getNombreDestinatario();
+                               strEmailResp = notificacion.getEmailDestinatario();
                            }
                        }
                    }
@@ -1410,8 +1407,8 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
                 strDescripcion = "Telecomunicaciones";
             }
             
-            strNomDestinatario = notificacion.getNombreDestinario();   
-            strEmailDestinatario = notificacion.getEmailDestinario();
+            strNomDestinatario = notificacion.getNombreDestinatario();   
+            strEmailDestinatario = notificacion.getEmailDestinatario();
             this.strAsunto = "ALERTA: Mantenimiento preventivo de " + strDescripcion + " próximo a cumplir su programación";                                    
 
             if (strEmailDestinatario != null && !strEmailDestinatario.equals("")){
@@ -1553,7 +1550,7 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
     @Override
     public void notificarVencimientoCartera(List<Cartera> carteras) throws GIDaoException {
         
-        String strCodigoNotificacion, strNroFactura, strNroDiasCartera, strFirma, strNomDestinario;    
+        String strCodigoNotificacion, strNroFactura, strNroDiasCartera, strFirma, strNomDestinatario;    
         Integer intTotalFacturas;
         Notificacion notificacion = null;
         strCodigoNotificacion = "NOTIFVENCCARTERA";
@@ -1574,16 +1571,16 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             this.strAsunto = null;
             this.strMensaje = "";
 
-            strNomDestinario = notificacion.getNombreDestinario();
+            strNomDestinatario = notificacion.getNombreDestinatario();
             
             if (this.strModoPdn.equals("N")){
                 this.strDestinatario = this.strEmailDllo;            
             }else{
-                this.strDestinatario = notificacion.getEmailDestinario().trim();            
+                this.strDestinatario = notificacion.getEmailDestinatario().trim();            
             }
                         
             this.strAsunto = "ALERTA: Facturas que requieren gestión de cobro";                                                          
-            this.strMensaje += "Cordial saludo Sr(a). <b>" + strNomDestinario + "</b>.<br /><br />";                  
+            this.strMensaje += "Cordial saludo Sr(a). <b>" + strNomDestinatario + "</b>.<br /><br />";                  
             this.strMensaje += "Las siguientes facturas requieren gestión de cobro: <br /><br />";      
             
             intTotalFacturas = 0;
@@ -1609,28 +1606,9 @@ public class NotificacionMailDAOImpl extends EnvioMailDAOimpl implements Notific
             this.parametroMail.setMensaje(this.strMensaje);
 
             sendMailHTML(this.parametroMail);                  
-            new GIDaoException("Notificación enviada correctamente a " + strNomDestinario + " al correo electrónico " + this.strDestinatario + " con " + intTotalFacturas.toString() + " facturas!.");
+            new GIDaoException("Notificación enviada correctamente a " + strNomDestinatario + " al correo electrónico " + this.strDestinatario + " con " + intTotalFacturas.toString() + " facturas!.");
               
         }
     }
-
-    @Override
-    public void notificarVencimientoProyecto(String strAccion, Proyecto proyecto, List<EjecucionPptalProyecto> ejecucionPptal, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto) throws GIDaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void notificarRegalias(List<String> participantes) throws GIDaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void notificarActividades(Actividad actividad, String strAccionNotificar) throws GIDaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void notificarReservas(List<Movimiento> movimientos, String strCodNotificacion) throws GIDaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }

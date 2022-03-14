@@ -8,10 +8,9 @@ package co.edu.udea.solucionessiu.jobs;
 
 import co.edu.udea.solucionessiu.dao.FuncionesComunesDAO;
 import co.edu.udea.solucionessiu.dao.NotificacionDAO;
-import co.edu.udea.solucionessiu.dao.NotificacionMailDAO;
 import co.edu.udea.solucionessiu.dao.impl.FuncionesComunesDAOImpl;
 import co.edu.udea.solucionessiu.dao.impl.NotificacionDAOImpl;
-import co.edu.udea.solucionessiu.dao.impl.NotificacionMailDAOImpl;
+import co.edu.udea.solucionessiu.dao.impl.NotificacionMailSiuWebDAOImpl;
 import co.edu.udea.solucionessiu.dto.Contrato;
 import co.edu.udea.solucionessiu.dto.Notificacion;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
@@ -30,6 +29,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import co.edu.udea.solucionessiu.dao.NotificacionMailSiuWebDAO;
 
 /**
  *
@@ -61,7 +61,7 @@ public class NotificarVencimientoContratosNalesAct implements Job{
                 
         FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
-        NotificacionMailDAO notificacionMailDAO = new NotificacionMailDAOImpl();
+        NotificacionMailSiuWebDAO notificacionMailDAO = new NotificacionMailSiuWebDAOImpl();
         Contrato contrato = null;
         
         strCodigoNotificacion = "CONTRATOSNALESACT";

@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author jorge.correa
  */
-public interface NotificacionMailDAO {
+public interface NotificacionMailSiuWebDAO {
     public void notificarVencimientoPedidos(Pedido pedido) throws GIDaoException;
     public void notificarVencimientoDocumentos(Documento documento) throws GIDaoException;
     public void notificarVencimientoRegistroPlanMejoramiento(RegistroPlanMejoramiento registro) throws GIDaoException;
@@ -42,10 +42,4 @@ public interface NotificacionMailDAO {
     public void notificarControlInsumos(ControlInsumo controlInsumo) throws GIDaoException;
     public void notificarEquiposMnto(List<EquipoMnto> equipos, String strCodNotificacion)  throws GIDaoException;
     public void notificarVencimientoCartera(List<Cartera> carteras) throws GIDaoException;
-    // Se inhabilita notificación a la Coordinadora de Compras.
-    //public void notificarVencimientoProyecto(String strAccion, Proyecto proyecto, List<EjecucionPptalProyecto> ejecucionPptal, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto, Persona coordCompras) throws GIDaoException;
-    public void notificarVencimientoProyecto(String strAccion, Proyecto proyecto, List<EjecucionPptalProyecto> ejecucionPptal, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto) throws GIDaoException;
-    public void notificarRegalias(List<String> participantes) throws GIDaoException;
-    public void notificarActividades(Actividad actividad, String strAccionNotificar) throws GIDaoException;
-    public void notificarReservas(List<Movimiento> movimientos, String strCodNotificacion)  throws GIDaoException;
 }

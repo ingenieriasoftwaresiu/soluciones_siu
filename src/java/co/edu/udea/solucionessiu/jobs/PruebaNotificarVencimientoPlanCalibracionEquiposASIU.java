@@ -8,10 +8,9 @@ package co.edu.udea.solucionessiu.jobs;
 
 import co.edu.udea.solucionessiu.dao.FuncionesComunesDAO;
 import co.edu.udea.solucionessiu.dao.NotificacionDAO;
-import co.edu.udea.solucionessiu.dao.NotificacionMailDAO;
 import co.edu.udea.solucionessiu.dao.impl.FuncionesComunesDAOImpl;
 import co.edu.udea.solucionessiu.dao.impl.NotificacionDAOImpl;
-import co.edu.udea.solucionessiu.dao.impl.NotificacionMailDAOImpl;
+import co.edu.udea.solucionessiu.dao.impl.NotificacionMailSiuWebDAOImpl;
 import co.edu.udea.solucionessiu.dto.Calibracion;
 import co.edu.udea.solucionessiu.dto.Mantenimiento;
 import co.edu.udea.solucionessiu.dto.Notificacion;
@@ -29,6 +28,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import co.edu.udea.solucionessiu.dao.NotificacionMailSiuWebDAO;
 
 /**
  *
@@ -56,7 +56,7 @@ public class PruebaNotificarVencimientoPlanCalibracionEquiposASIU {
         
         FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
-        NotificacionMailDAO notificacionMailDAO = new NotificacionMailDAOImpl();
+        NotificacionMailSiuWebDAO notificacionMailDAO = new NotificacionMailSiuWebDAOImpl();
         
         strCodigoNotificacion = "PLANCALIBEQASIU";
         intFilaInicio = 5;

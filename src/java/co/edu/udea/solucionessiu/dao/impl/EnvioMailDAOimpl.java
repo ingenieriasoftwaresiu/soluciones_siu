@@ -23,7 +23,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
-import javax.mail.SendFailedException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -50,7 +49,7 @@ public class EnvioMailDAOimpl  implements EnvioMailDAO{
         parametroGeneralDAO = new ParametroGeneralDAOImpl();
         
         try{
-            parametroGeneral = parametroGeneralDAO.obtenerParametrosGenerales();
+            parametroGeneral = parametroGeneralDAO.obtenerParametrosGeneralesSiuWeb();
         }catch(GIDaoException e){
             new GIDaoException("Se generó un error al obtener los parámetros generales", e);
         }

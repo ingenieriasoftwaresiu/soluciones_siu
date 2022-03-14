@@ -215,7 +215,7 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
         ParametroGeneral parametroGeneral = null;
         Integer intCont=0;
         
-        parametroGeneral = parametroGeneralDAO.obtenerParametrosGenerales();
+        parametroGeneral = parametroGeneralDAO.obtenerParametrosGeneralesSigep();
         
         if (parametroGeneral != null){
             strIdsProyectos = parametroGeneral.getProyectosExentosNotificacion();
