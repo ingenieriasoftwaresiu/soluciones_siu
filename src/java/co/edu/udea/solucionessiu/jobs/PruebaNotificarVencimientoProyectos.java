@@ -13,7 +13,6 @@ import co.edu.udea.solucionessiu.dao.FuncionesComunesDAO;
 import co.edu.udea.solucionessiu.dao.NotificacionMailSigepDAO;
 import co.edu.udea.solucionessiu.dao.ParametroGeneralDAO;
 import co.edu.udea.solucionessiu.dao.PersonaDAO;
-import co.edu.udea.solucionessiu.dao.ProyectoDAO;
 import co.edu.udea.solucionessiu.dao.impl.ComunesDAOImpl;
 import co.edu.udea.solucionessiu.dao.impl.EjecucionPptalProyectoDAOImpl;
 import co.edu.udea.solucionessiu.dao.impl.EtapaDAOImpl;
@@ -21,15 +20,16 @@ import co.edu.udea.solucionessiu.dao.impl.FuncionesComunesDAOImpl;
 import co.edu.udea.solucionessiu.dao.impl.NotificacionMailSigepDAOImpl;
 import co.edu.udea.solucionessiu.dao.impl.ParametroGeneralDAOImpl;
 import co.edu.udea.solucionessiu.dao.impl.PersonaDAOImpl;
-import co.edu.udea.solucionessiu.dao.impl.ProyectoDAOImpl;
+import co.edu.udea.solucionessiu.dao.impl.ProyectoSIGEPDAOImpl;
 import co.edu.udea.solucionessiu.dto.EjecucionPptalProyecto;
 import co.edu.udea.solucionessiu.dto.Etapa;
-import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
 import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import co.edu.udea.solucionessiu.dao.ProyectoSIGEPDAO;
 
 /**
  *
@@ -48,16 +48,16 @@ public class PruebaNotificarVencimientoProyectos {
         new GIDaoException("Iniciando tarea NotificarVencimientoProyectos");
         
         Date dtFechaActual = null;
-        List<Persona> administradores_dependencia = null;
+        List<PersonaSIGEP> administradores_dependencia = null;
         List<ProyectoSIGEP> proyectos = null;
         String strIdProyecto = null, strMensaje = null, strAccion=null;
         Integer intTotalProyectosNotificados=0, intTotalProyectoExentos=0;
         Date dtFechaFinalizacion = null;
         Long lgNumDias = null;
         Boolean notificarProyecto = Boolean.FALSE;
-        Persona investigadorPpal = null;
-        Persona admonProyecto = null;
-        Persona admonDependencia = null;
+        PersonaSIGEP investigadorPpal = null;
+        PersonaSIGEP admonProyecto = null;
+        PersonaSIGEP admonDependencia = null;
         //Persona coordCompras = null;
         final String NUMERO_DIAS_SEMESTRE ="180"; // 258 días para proyectos de extensión 2015. Fecha: 17-04-2015.
         final String NUMERO_DIAS_TRIMESTRE ="90"; // 89 días para el proyecto: 4-401490. Fecha: 15-04-2015.
@@ -81,7 +81,7 @@ public class PruebaNotificarVencimientoProyectos {
             Obtener todos los proyectos que se encuentren en estado 1=Activo.
         */
 
-        ProyectoDAO proyectoDAO = new ProyectoDAOImpl();
+        ProyectoSIGEPDAO proyectoDAO = new ProyectoSIGEPDAOImpl();
         proyectos = new ArrayList<ProyectoSIGEP>();
 
         try{
@@ -103,7 +103,7 @@ public class PruebaNotificarVencimientoProyectos {
         */
         
         PersonaDAO personaDAO = new PersonaDAOImpl();
-        administradores_dependencia = new ArrayList<Persona>();
+        administradores_dependencia = new ArrayList<PersonaSIGEP>();
         
         try{
             administradores_dependencia = personaDAO.obtenerPorNivel(CODIGO_ADMON_DEPENDENCIA);

@@ -5,7 +5,7 @@
  */
 package co.edu.udea.solucionessiu.dao;
 
-import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
+import co.edu.udea.solucionessiu.dto.ProyectoTotalProyectos;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.util.List;
 
@@ -13,7 +13,8 @@ import java.util.List;
  *
  * @author jorge.correaj
  */
-public interface PersonaDAO {
-    public List<PersonaSIGEP> obtenerPorNivel(Integer intNivel) throws GIDaoException;
-    public PersonaSIGEP obtenerUna(String strIdPersona) throws GIDaoException;  
+public interface ProyectoTotalProyectosDAO {
+    
+    public ProyectoTotalProyectos obtenerUno(Integer intId) throws GIDaoException;
+    public List<ProyectoTotalProyectos> obtenerActivos() throws GIDaoException;
 }

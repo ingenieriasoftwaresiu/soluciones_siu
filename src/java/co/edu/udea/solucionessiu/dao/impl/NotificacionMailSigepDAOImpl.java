@@ -17,7 +17,7 @@ import co.edu.udea.solucionessiu.dto.Movimiento;
 import co.edu.udea.solucionessiu.dto.Notificacion;
 import co.edu.udea.solucionessiu.dto.ParametroGeneral;
 import co.edu.udea.solucionessiu.dto.ParametroMail;
-import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
 import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class NotificacionMailSigepDAOImpl extends EnvioMailDAOimpl implements No
     }
 
     @Override
-    public void notificarVencimientoProyecto(String strAccion, ProyectoSIGEP proyecto, List<EjecucionPptalProyecto> ejecucionesPptales, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto) throws GIDaoException {
+    public void notificarVencimientoProyecto(String strAccion, ProyectoSIGEP proyecto, List<EjecucionPptalProyecto> ejecucionesPptales, PersonaSIGEP admonDependencia, PersonaSIGEP investigadorPpal, PersonaSIGEP admonProyecto) throws GIDaoException {
         String strCodigoProyecto=null, strNombreProyecto=null, strEmail=null, strFirma="", strTiempoFaltante="", strComplementoAdmonDependencia="", strComplementoInvPpal="";        
         String strEjecucionPptal="", strFirmaGeneral="", strFechaEmision=null, strNombreInvPpal="", strNombreAdmonProyecto="", strAdvertenciaMailInvPpal="", strMsgFinal="";
         String[] strTemp = null;
@@ -382,8 +382,8 @@ public class NotificacionMailSigepDAOImpl extends EnvioMailDAOimpl implements No
         
         String strCodigoProyecto, strEmailGestor, strNomGestor, strEmailInv, strNomInv, strFechaEmision, strFirma, strFirmaGeneral, strMsgFinal, strDescripcion, strProducto;
         String strNomAdmon, strEmailAdmon;
-        List<Persona> administradores_dependencia = null;
-        Persona admonDependencia = null;
+        List<PersonaSIGEP> administradores_dependencia = null;
+        PersonaSIGEP admonDependencia = null;
         Date dtFechaFinal = null;
         final Integer CODIGO_INVESTIGADOR_PPAL = 4;
         final Integer CODIGO_ADMON_DEPENDENCIA = 2;
@@ -405,7 +405,7 @@ public class NotificacionMailSigepDAOImpl extends EnvioMailDAOimpl implements No
         strFechaEmision = funcionesComunesDAO.getFechaActual();
         
         PersonaDAO personaDAO = new PersonaDAOImpl();
-        administradores_dependencia = new ArrayList<Persona>();
+        administradores_dependencia = new ArrayList<PersonaSIGEP>();
         
         try{
             administradores_dependencia = personaDAO.obtenerPorNivel(CODIGO_ADMON_DEPENDENCIA);
@@ -427,10 +427,10 @@ public class NotificacionMailSigepDAOImpl extends EnvioMailDAOimpl implements No
         strCodigoProyecto = actividad.getProyecto();
         
         ComunesDAO comunesDAO = new ComunesDAOImpl();
-        Persona gestorProyecto = null;        
+        PersonaSIGEP gestorProyecto = null;        
         gestorProyecto = comunesDAO.obtenerGestorGrupo(strCodigoProyecto);
         
-        Persona investigador = null;        
+        PersonaSIGEP investigador = null;        
         investigador = comunesDAO.obtenerParticipanteProyecto(strCodigoProyecto, CODIGO_INVESTIGADOR_PPAL);
              
         strCodigoProyecto = actividad.getProyecto().replace("4-", "");
@@ -570,7 +570,7 @@ public class NotificacionMailSigepDAOImpl extends EnvioMailDAOimpl implements No
         Notificacion notificacion =null;
         
         PersonaDAO personaDAO = new PersonaDAOImpl();
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         
         try{
             notificacion = notificacionDAO.obtenerUnoSIGEP(strCodNotificacion);

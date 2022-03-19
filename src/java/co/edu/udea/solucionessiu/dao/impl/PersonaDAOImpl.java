@@ -7,7 +7,7 @@ package co.edu.udea.solucionessiu.dao.impl;
 
 import co.edu.udea.solucionessiu.dao.PersonaDAO;
 import co.edu.udea.solucionessiu.dao.cnf.JDBCConnectionPool;
-import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,12 +38,12 @@ public class PersonaDAOImpl extends JDBCConnectionPool implements PersonaDAO {
     private static final String ID_BASE_DATOS = "sigep";
 
     @Override
-    public List<Persona> obtenerPorNivel(Integer intNivel) throws GIDaoException {
+    public List<PersonaSIGEP> obtenerPorNivel(Integer intNivel) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<Persona> personas = new ArrayList<Persona>();
-        Persona persona = null;
+        List<PersonaSIGEP> personas = new ArrayList<PersonaSIGEP>();
+        PersonaSIGEP persona = null;
         
         try{
             con = getConexion(ID_BASE_DATOS);
@@ -54,7 +54,7 @@ public class PersonaDAOImpl extends JDBCConnectionPool implements PersonaDAO {
             
             if (rs != null){
                 while (rs.next()){
-                    persona = new Persona();
+                    persona = new PersonaSIGEP();
                     
                     persona.setIdentificacion(rs.getString(COLUMNA_IDENTIFICACION));
                     persona.setNombre(rs.getString(COLUMNA_NOMBRE));
@@ -97,11 +97,11 @@ public class PersonaDAOImpl extends JDBCConnectionPool implements PersonaDAO {
     }
 
     @Override
-    public Persona obtenerUna(String strIdPersona) throws GIDaoException {
+    public PersonaSIGEP obtenerUna(String strIdPersona) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         
         try{
             con = getConexion(ID_BASE_DATOS);
@@ -111,7 +111,7 @@ public class PersonaDAOImpl extends JDBCConnectionPool implements PersonaDAO {
             rs = ps.executeQuery();
             
             if (rs.next()){           
-                    persona = new Persona();                    
+                    persona = new PersonaSIGEP();                    
                     persona.setIdentificacion(rs.getString(COLUMNA_IDENTIFICACION));
                     persona.setNombre(rs.getString(COLUMNA_NOMBRE));
                     persona.setDependencia(rs.getString(COLUMNA_DEPENDENCIA));

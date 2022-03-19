@@ -9,7 +9,7 @@ package co.edu.udea.solucionessiu.dao.impl;
 import co.edu.udea.solucionessiu.dao.ParametrosASIUDAO;
 import co.edu.udea.solucionessiu.dao.cnf.JDBCConnectionPool;
 import co.edu.udea.solucionessiu.dto.Coordinacion;
-import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
 import co.edu.udea.solucionessiu.dto.Proceso;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.sql.Connection;
@@ -86,11 +86,11 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
     }
 
     @Override
-    public Persona obtenerPersonaXId(String strCodigo) throws GIDaoException {
+    public PersonaSIGEP obtenerPersonaXId(String strCodigo) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         String strIdBD = "siuweb";
         
         try{
@@ -101,7 +101,7 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
             rs = ps.executeQuery();
             
             if (rs.next()){                
-                persona = new Persona();
+                persona = new PersonaSIGEP();
                 persona.setIdentificacion(rs.getString(COLUMNA_IDENTIFICACION));
                 persona.setNombreCompleto(rs.getString(COLUMNA_NOMBRE_COMPLETO));
                 persona.setCorreoInstitucional(rs.getString(COLUMNA_EMAIL_C));
@@ -181,11 +181,11 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
     }
 
     @Override
-    public Persona obtenerPersonaXCargo(String strIdCargo) throws GIDaoException {
+    public PersonaSIGEP obtenerPersonaXCargo(String strIdCargo) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         String strIdBD = "siuweb";
         
         try{
@@ -196,7 +196,7 @@ public class ParametrosASIUDAOImpl extends JDBCConnectionPool implements Paramet
             rs = ps.executeQuery();
             
             if (rs.next()){                
-                persona = new Persona();
+                persona = new PersonaSIGEP();
                 persona.setIdentificacion(rs.getString(COLUMNA_IDENTIFICACION));
                 persona.setNombreCompleto(rs.getString(COLUMNA_NOMBRE_COMPLETO));
                 persona.setCorreoInstitucional(rs.getString(COLUMNA_EMAIL_C));

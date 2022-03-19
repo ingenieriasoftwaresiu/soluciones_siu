@@ -18,7 +18,7 @@ import co.edu.udea.solucionessiu.dto.EquipoMnto;
 import co.edu.udea.solucionessiu.dto.MntoPrtvoEqCi;
 import co.edu.udea.solucionessiu.dto.Movimiento;
 import co.edu.udea.solucionessiu.dto.Pedido;
-import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
 import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.dto.RegistroPlanCalibracion;
 import co.edu.udea.solucionessiu.dto.RegistroPlanMejoramiento;

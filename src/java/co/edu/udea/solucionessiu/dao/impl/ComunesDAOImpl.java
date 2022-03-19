@@ -14,7 +14,7 @@ import co.edu.udea.solucionessiu.dao.cnf.JDBCConnectionPool;
 import co.edu.udea.solucionessiu.dto.Grupo;
 import co.edu.udea.solucionessiu.dto.GrupoProyecto;
 import co.edu.udea.solucionessiu.dto.Participante;
-import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 
 /**
@@ -24,13 +24,13 @@ import co.edu.udea.solucionessiu.exception.GIDaoException;
 public class ComunesDAOImpl extends JDBCConnectionPool implements ComunesDAO{
         
     @Override
-    public Persona obtenerParticipanteProyecto(String strIdProyecto, Integer intCodigoRol) throws GIDaoException {
+    public PersonaSIGEP obtenerParticipanteProyecto(String strIdProyecto, Integer intCodigoRol) throws GIDaoException {
         
         ParticipanteDAO participanteDAO = new ParticipanteDAOImpl();
         Participante participante = null;
         
         PersonaDAO personaDAO = new PersonaDAOImpl();
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         
         participante = participanteDAO.obtenerPorProyectoYRol(strIdProyecto, intCodigoRol);
         
@@ -49,7 +49,7 @@ public class ComunesDAOImpl extends JDBCConnectionPool implements ComunesDAO{
     }
 
     @Override
-    public Persona obtenerGestorGrupo(String strIdProyecto) throws GIDaoException {
+    public PersonaSIGEP obtenerGestorGrupo(String strIdProyecto) throws GIDaoException {
         
         GrupoProyectoDAO grupoProyectoDAO = new GrupoProyectoDAOImpl();
         GrupoProyecto grupoProyecto = null;
@@ -58,7 +58,7 @@ public class ComunesDAOImpl extends JDBCConnectionPool implements ComunesDAO{
         Grupo grupo = null;
         
         PersonaDAO personaDAO = new PersonaDAOImpl();
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         
         grupoProyecto = grupoProyectoDAO.obtenerPorProyecto(strIdProyecto);                        
         

@@ -6,7 +6,6 @@
 package co.edu.udea.solucionessiu.dao.impl;
 
 import co.edu.udea.solucionessiu.dao.ParametroGeneralDAO;
-import co.edu.udea.solucionessiu.dao.ProyectoDAO;
 import co.edu.udea.solucionessiu.dao.cnf.JDBCConnectionPool;
 import co.edu.udea.solucionessiu.dto.ParametroGeneral;
 import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
@@ -17,12 +16,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import co.edu.udea.solucionessiu.dao.ProyectoSIGEPDAO;
 
 /**
  *
  * @author jorge.correaj
  */
-public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
+public class ProyectoSIGEPDAOImpl extends JDBCConnectionPool implements ProyectoSIGEPDAO {
     private static final String OBTENER_TODOS = "SELECT * from sigap.sigap_proyectos WHERE Codigo <> '' ORDER BY Codigo";
     private static final String OBTENER_POR_ESTADO = "SELECT * from sigap.sigap_proyectos WHERE Codigo <> '' and Estado = ? ORDER BY Codigo";
     private static final String OBTENER_POR_ESTADO_Y_TIPO_PROYECTODIFERENTE = "SELECT * from sigap.sigap_proyectos WHERE Codigo <> '' and Estado = ? and TipoProyectos <> ? ORDER BY Codigo";

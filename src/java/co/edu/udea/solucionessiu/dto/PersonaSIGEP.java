@@ -10,7 +10,7 @@ package co.edu.udea.solucionessiu.dto;
  *
  * @author jorge.correa
  */
-public class Persona {
+public class PersonaSIGEP {
     private String identificacion;
     private String nombreCompleto;
     private String correoInstitucional;

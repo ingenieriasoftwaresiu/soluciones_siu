@@ -27,7 +27,7 @@ import co.edu.udea.solucionessiu.dto.Notificacion;
 import co.edu.udea.solucionessiu.dto.ParametroGeneral;
 import co.edu.udea.solucionessiu.dto.ParametroMail;
 import co.edu.udea.solucionessiu.dto.Pedido;
-import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
 import co.edu.udea.solucionessiu.dto.RegistroPlanCalibracion;
 import co.edu.udea.solucionessiu.dto.RegistroPlanMejoramiento;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
@@ -141,7 +141,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         String strVigencia=null, strComplementoMsg=null, strComplementoAsunto=null;
         String[] strTemp= null;
         Coordinacion coordinacion = null;
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         
         ParametrosASIUDAO parametrosASIUDAO = new ParametrosASIUDAOImpl();       
                       
@@ -262,7 +262,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         Correccion correccion = null;
         Accion accion = null;
         Eficacia eficacia = null;
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         Notificacion notificacion = null;
                       
         this.strDestinatario = null;
@@ -517,7 +517,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         Notificacion notificacion = null;
         Calibracion calibracion = null;
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         
         this.strDestinatario = null;
         this.strAsunto = null;
@@ -753,7 +753,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         Correccion correccion = null;
         Accion accion = null;
         Eficacia eficacia = null;
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         Notificacion notificacion = null;
                       
         this.strDestinatario = null;
@@ -1251,7 +1251,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         ParametrosASIUDAO parametrosASIUDAO = new ParametrosASIUDAOImpl();  
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         Notificacion notificacion = null;
-        Persona persona = null;
+        PersonaSIGEP persona = null;
         
         strFirma = "Administración de la SIU";
         

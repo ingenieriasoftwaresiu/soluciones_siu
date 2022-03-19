@@ -5,7 +5,7 @@
  */
 package co.edu.udea.solucionessiu.dao;
 
-import co.edu.udea.solucionessiu.dto.Persona;
+import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 
 /**
@@ -13,6 +13,6 @@ import co.edu.udea.solucionessiu.exception.GIDaoException;
  * @author jorge.correaj
  */
 public interface ComunesDAO {
-    public Persona obtenerParticipanteProyecto(String strIdProyecto, Integer intCodigoRol) throws GIDaoException;
-    public Persona obtenerGestorGrupo(String strIdProyecto) throws GIDaoException;
+    public PersonaSIGEP obtenerParticipanteProyecto(String strIdProyecto, Integer intCodigoRol) throws GIDaoException;
+    public PersonaSIGEP obtenerGestorGrupo(String strIdProyecto) throws GIDaoException;
 }

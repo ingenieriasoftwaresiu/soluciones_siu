@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author jorge.correaj
  */
-public interface ProyectoDAO {
+public interface ProyectoSIGEPDAO {
     public List<ProyectoSIGEP> obtenerTodos() throws GIDaoException;
     public List<ProyectoSIGEP> obtenerPorEstado(String strIdEstado) throws GIDaoException;
     public List<ProyectoSIGEP> obtenerPorEstadoYTipoProyectoDiferente(String strIdEstado, String strIdTipoProyecto) throws GIDaoException;
