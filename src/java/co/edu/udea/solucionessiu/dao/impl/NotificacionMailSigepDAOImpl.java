@@ -18,7 +18,7 @@ import co.edu.udea.solucionessiu.dto.Notificacion;
 import co.edu.udea.solucionessiu.dto.ParametroGeneral;
 import co.edu.udea.solucionessiu.dto.ParametroMail;
 import co.edu.udea.solucionessiu.dto.Persona;
-import co.edu.udea.solucionessiu.dto.Proyecto;
+import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +51,7 @@ public class NotificacionMailSigepDAOImpl extends EnvioMailDAOimpl implements No
     }
 
     @Override
-    public void notificarVencimientoProyecto(String strAccion, Proyecto proyecto, List<EjecucionPptalProyecto> ejecucionesPptales, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto) throws GIDaoException {
+    public void notificarVencimientoProyecto(String strAccion, ProyectoSIGEP proyecto, List<EjecucionPptalProyecto> ejecucionesPptales, Persona admonDependencia, Persona investigadorPpal, Persona admonProyecto) throws GIDaoException {
         String strCodigoProyecto=null, strNombreProyecto=null, strEmail=null, strFirma="", strTiempoFaltante="", strComplementoAdmonDependencia="", strComplementoInvPpal="";        
         String strEjecucionPptal="", strFirmaGeneral="", strFechaEmision=null, strNombreInvPpal="", strNombreAdmonProyecto="", strAdvertenciaMailInvPpal="", strMsgFinal="";
         String[] strTemp = null;
@@ -246,7 +246,7 @@ public class NotificacionMailSigepDAOImpl extends EnvioMailDAOimpl implements No
             strEmail = null;
 
             /*
-                Notificación para el Administrador del Proyecto.
+                Notificación para el Administrador del ProyectoSIGEP.
             */
 
             if (admonProyecto != null){          

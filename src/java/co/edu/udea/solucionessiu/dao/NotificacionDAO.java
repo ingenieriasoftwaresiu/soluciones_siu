@@ -16,4 +16,5 @@ import co.edu.udea.solucionessiu.exception.GIDaoException;
 public interface NotificacionDAO {
     public Notificacion obtenerUnoSiuWeb(String strCodigo) throws GIDaoException;
     public Notificacion obtenerUnoSIGEP(String strCodigo) throws GIDaoException;
+    public Notificacion obtenerUnoTotalProyectos(String strCodigo) throws GIDaoException;
 }

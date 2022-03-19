@@ -9,7 +9,7 @@ package co.edu.udea.solucionessiu.dto;
  *
  * @author jorge.correaj
  */
-public class Proyecto {
+public class ProyectoSIGEP {
     private String codigo;
     private String nombre;
     private String descripcion;

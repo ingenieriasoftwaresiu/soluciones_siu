@@ -9,7 +9,7 @@ import co.edu.udea.solucionessiu.dao.ParametroGeneralDAO;
 import co.edu.udea.solucionessiu.dao.ProyectoDAO;
 import co.edu.udea.solucionessiu.dao.cnf.JDBCConnectionPool;
 import co.edu.udea.solucionessiu.dto.ParametroGeneral;
-import co.edu.udea.solucionessiu.dto.Proyecto;
+import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,12 +41,12 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
     private static final String ID_BASE_DATOS = "sigep";
     
     @Override
-    public List<Proyecto> obtenerTodos() throws GIDaoException {
+    public List<ProyectoSIGEP> obtenerTodos() throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<Proyecto> proyectos = new ArrayList<Proyecto>();
-        Proyecto proyecto = null;
+        List<ProyectoSIGEP> proyectos = new ArrayList<ProyectoSIGEP>();
+        ProyectoSIGEP proyecto = null;
         
         try{
             con = getConexion(ID_BASE_DATOS);
@@ -56,7 +56,7 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
             
             if (rs != null){
                 while (rs.next()){
-                    proyecto = new Proyecto();
+                    proyecto = new ProyectoSIGEP();
                     
                     proyecto.setCodigo(rs.getString(COLUMNA_CODIGO));
                     proyecto.setNombre(rs.getString(COLUMNA_NOMBRE));
@@ -98,11 +98,11 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
     }
 
     @Override
-    public Proyecto obtenerUno(String strCodigo) throws GIDaoException {
+    public ProyectoSIGEP obtenerUno(String strCodigo) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Proyecto proyecto = null;
+        ProyectoSIGEP proyecto = null;
         
         try{
             con = getConexion(ID_BASE_DATOS);
@@ -112,7 +112,7 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
             rs = ps.executeQuery();
             
             if (rs.next()){                
-                    proyecto = new Proyecto();                    
+                    proyecto = new ProyectoSIGEP();                    
                     proyecto.setCodigo(rs.getString(COLUMNA_CODIGO));
                     proyecto.setNombre(rs.getString(COLUMNA_NOMBRE));
                     proyecto.setDescripcion(rs.getString(COLUMNA_DESCRIPCION));
@@ -150,12 +150,12 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
     }
 
     @Override
-    public List<Proyecto> obtenerPorEstado(String strIdEstado) throws GIDaoException {
+    public List<ProyectoSIGEP> obtenerPorEstado(String strIdEstado) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<Proyecto> proyectos = new ArrayList<Proyecto>();
-        Proyecto proyecto = null;
+        List<ProyectoSIGEP> proyectos = new ArrayList<ProyectoSIGEP>();
+        ProyectoSIGEP proyecto = null;
         
         try{
             con = getConexion(ID_BASE_DATOS);
@@ -166,7 +166,7 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
             
             if (rs != null){
                 while (rs.next()){
-                    proyecto = new Proyecto();
+                    proyecto = new ProyectoSIGEP();
                     
                     proyecto.setCodigo(rs.getString(COLUMNA_CODIGO));
                     proyecto.setNombre(rs.getString(COLUMNA_NOMBRE));
@@ -244,12 +244,12 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
     }                
 
     @Override
-    public List<Proyecto> obtenerPorEstadoYTipoProyectoDiferente(String strIdEstado, String strIdTipoProyecto) throws GIDaoException {
+    public List<ProyectoSIGEP> obtenerPorEstadoYTipoProyectoDiferente(String strIdEstado, String strIdTipoProyecto) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<Proyecto> proyectos = new ArrayList<Proyecto>();
-        Proyecto proyecto = null;
+        List<ProyectoSIGEP> proyectos = new ArrayList<ProyectoSIGEP>();
+        ProyectoSIGEP proyecto = null;
         
         try{
             con = getConexion(ID_BASE_DATOS);
@@ -261,7 +261,7 @@ public class ProyectoDAOImpl extends JDBCConnectionPool implements ProyectoDAO {
             
             if (rs != null){
                 while (rs.next()){
-                    proyecto = new Proyecto();
+                    proyecto = new ProyectoSIGEP();
                     
                     proyecto.setCodigo(rs.getString(COLUMNA_CODIGO));
                     proyecto.setNombre(rs.getString(COLUMNA_NOMBRE));

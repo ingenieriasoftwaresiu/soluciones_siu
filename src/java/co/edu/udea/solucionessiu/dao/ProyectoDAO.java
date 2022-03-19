@@ -5,7 +5,7 @@
  */
 package co.edu.udea.solucionessiu.dao;
 
-import co.edu.udea.solucionessiu.dto.Proyecto;
+import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * @author jorge.correaj
  */
 public interface ProyectoDAO {
-    public List<Proyecto> obtenerTodos() throws GIDaoException;
-    public List<Proyecto> obtenerPorEstado(String strIdEstado) throws GIDaoException;
-    public List<Proyecto> obtenerPorEstadoYTipoProyectoDiferente(String strIdEstado, String strIdTipoProyecto) throws GIDaoException;
-    public Proyecto obtenerUno(String strCodigo) throws GIDaoException;
+    public List<ProyectoSIGEP> obtenerTodos() throws GIDaoException;
+    public List<ProyectoSIGEP> obtenerPorEstado(String strIdEstado) throws GIDaoException;
+    public List<ProyectoSIGEP> obtenerPorEstadoYTipoProyectoDiferente(String strIdEstado, String strIdTipoProyecto) throws GIDaoException;
+    public ProyectoSIGEP obtenerUno(String strCodigo) throws GIDaoException;
     public Boolean verificarNotificacionProyecto(String strIdProyecto) throws GIDaoException;
 }

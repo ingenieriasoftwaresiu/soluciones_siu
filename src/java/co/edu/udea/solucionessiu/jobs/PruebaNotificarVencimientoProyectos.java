@@ -25,7 +25,7 @@ import co.edu.udea.solucionessiu.dao.impl.ProyectoDAOImpl;
 import co.edu.udea.solucionessiu.dto.EjecucionPptalProyecto;
 import co.edu.udea.solucionessiu.dto.Etapa;
 import co.edu.udea.solucionessiu.dto.Persona;
-import co.edu.udea.solucionessiu.dto.Proyecto;
+import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +49,7 @@ public class PruebaNotificarVencimientoProyectos {
         
         Date dtFechaActual = null;
         List<Persona> administradores_dependencia = null;
-        List<Proyecto> proyectos = null;
+        List<ProyectoSIGEP> proyectos = null;
         String strIdProyecto = null, strMensaje = null, strAccion=null;
         Integer intTotalProyectosNotificados=0, intTotalProyectoExentos=0;
         Date dtFechaFinalizacion = null;
@@ -82,7 +82,7 @@ public class PruebaNotificarVencimientoProyectos {
         */
 
         ProyectoDAO proyectoDAO = new ProyectoDAOImpl();
-        proyectos = new ArrayList<Proyecto>();
+        proyectos = new ArrayList<ProyectoSIGEP>();
 
         try{
             proyectos = proyectoDAO.obtenerPorEstadoYTipoProyectoDiferente(CODIGO_ESTADO_ACTIVO,TIPO_PROYECTO_DIFERENTE);
@@ -133,7 +133,7 @@ public class PruebaNotificarVencimientoProyectos {
         
         if ((proyectos != null) && (proyectos.size() > 0)){
             
-            for (Proyecto proyecto : proyectos){
+            for (ProyectoSIGEP proyecto : proyectos){
                 
                 strIdProyecto = proyecto.getCodigo().trim();
                 System.out.println("Código proyecto: " + strIdProyecto);

@@ -19,7 +19,7 @@ import co.edu.udea.solucionessiu.dto.MntoPrtvoEqCi;
 import co.edu.udea.solucionessiu.dto.Movimiento;
 import co.edu.udea.solucionessiu.dto.Pedido;
 import co.edu.udea.solucionessiu.dto.Persona;
-import co.edu.udea.solucionessiu.dto.Proyecto;
+import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.dto.RegistroPlanCalibracion;
 import co.edu.udea.solucionessiu.dto.RegistroPlanMejoramiento;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
