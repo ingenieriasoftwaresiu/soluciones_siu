@@ -78,7 +78,7 @@ public class PruebaNotificarVencimientoPlanMntoSIU {
             fis = null;
             
             try{
-                notificacion = notificacionDAO.obtenerUno(strCodigoNotificacion);
+                notificacion = notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
             }catch(GIDaoException gde){
                 new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
                 notificacion = null;

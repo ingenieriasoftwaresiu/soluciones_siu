@@ -82,7 +82,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         strCodigoNotificacion = pedido.getCodigoNotificacion();
         
         try{
-            notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
+            notificacion =notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
         }catch(GIDaoException gde){
             new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
             notificacion = null;
@@ -283,7 +283,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
             strFirma = "Administración de la SIU";
 
             try{
-                notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
+                notificacion =notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
             }catch(GIDaoException gde){
                 new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
                 notificacion = null;
@@ -535,7 +535,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
             strFirma = "Administración de la SIU";
 
             try{
-                notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
+                notificacion =notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
             }catch(GIDaoException gde){
                 new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
                 notificacion = null;
@@ -649,7 +649,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         
         try{
-            notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
+            notificacion =notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
         }catch(GIDaoException gde){
             new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
             notificacion = null;
@@ -774,7 +774,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
             strFirma = "Administración de la SIU";
 
             try{
-                notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
+                notificacion =notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
             }catch(GIDaoException gde){
                 new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
                 notificacion = null;
@@ -1024,7 +1024,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         strGrupo = "";
         
         try{
-            notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
+            notificacion =notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
         }catch(GIDaoException gde){
             new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
             notificacion = null;
@@ -1273,7 +1273,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         strCodigoNotificacion = "CONTROLINSUMOS";
         
         try{
-            notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
+            notificacion =notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
         }catch(GIDaoException gde){
             new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
             notificacion = null;
@@ -1366,7 +1366,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         Notificacion notificacion =null;
         
         try{
-            notificacion = notificacionDAO.obtenerUno(strCodNotificacion);
+            notificacion = notificacionDAO.obtenerUnoSiuWeb(strCodNotificacion);
         }catch(GIDaoException gi){
             new GIDaoException("Se generó un obteniendo la configuración de la notificación", gi);
         }
@@ -1559,7 +1559,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         
         try{
-            notificacion =notificacionDAO.obtenerUno(strCodigoNotificacion);
+            notificacion =notificacionDAO.obtenerUnoSiuWeb(strCodigoNotificacion);
         }catch(GIDaoException gde){
             new GIDaoException("Se generó un error recuperando la información de la notificación con código " + strCodigoNotificacion, gde);            
             notificacion = null;

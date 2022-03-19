@@ -573,7 +573,7 @@ public class NotificacionMailSigepDAOImpl extends EnvioMailDAOimpl implements No
         Persona persona = null;
         
         try{
-            notificacion = notificacionDAO.obtenerUna(strCodNotificacion);
+            notificacion = notificacionDAO.obtenerUnoSIGEP(strCodNotificacion);
         }catch(GIDaoException gi){
             new GIDaoException("Se generó un error parseando la fecha actual", gi);
         }

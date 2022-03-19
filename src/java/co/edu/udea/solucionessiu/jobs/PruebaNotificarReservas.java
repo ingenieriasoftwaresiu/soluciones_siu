@@ -80,7 +80,7 @@ public class PruebaNotificarReservas {
             System.out.println("Código de notificación: " + strCodigoNotificacion);
             
             try{
-                notificacion = notificacionDAO.obtenerUna(strCodigoNotificacion);
+                notificacion = notificacionDAO.obtenerUnoSIGEP(strCodigoNotificacion);
             }catch(GIDaoException gi){
                 new GIDaoException("Se generó un error al intentar recuperar la notificación con código " + strCodigoNotificacion, gi);
                 notificacion = null;

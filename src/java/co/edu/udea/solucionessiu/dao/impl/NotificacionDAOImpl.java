@@ -39,7 +39,7 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
     private static final String BD_SIGEP_COLUMNA_DIAS_PREVIOS_NOTIFICACION = "diasPreviosNotificacion";
 
     @Override
-    public Notificacion obtenerUno(String strCodigo) throws GIDaoException {
+    public Notificacion obtenerUnoSiuWeb(String strCodigo) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -92,7 +92,7 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
     }
     
     @Override
-    public Notificacion obtenerUna(String strCodigo) throws GIDaoException {
+    public Notificacion obtenerUnoSIGEP(String strCodigo) throws GIDaoException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
