@@ -30,6 +30,7 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
     private static final String BD_SIUWEB_COLUMNA_DIAS_NOTIFICAR = "intDiasNotificar";
     private static final String BD_SIUWEB_COLUMNA_DIAS__DESPUES_NOTIFICAR = "intDiasDespuesNotificar";
     private static final String BD_SIUWEB_COLUMNA_NOMBRE_HOJA = "txtNombreHoja";
+    private static final String BD_SIUWEB_ID_BD = "siuweb";
     
     private static final String BD_SIGEP_OBTENER_UNO = "SELECT * from sigap.sigap_notificaciones WHERE codigo = ?";
     private static final String BD_SIGEP_COLUMNA_CODIGO = "codigo";
@@ -37,6 +38,7 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
     private static final String BD_SIGEP_COLUMNA_NOMBRE_DESTINATARIO = "nombreDestinatario";
     private static final String BD_SIGEP_COLUMNA_EMAIL_DESTINATARIO = "emailDestinatario";
     private static final String BD_SIGEP_COLUMNA_DIAS_PREVIOS_NOTIFICACION = "diasPreviosNotificacion";
+    private static final String BD_SIGEP_ID_BD = "sigep";
     
     private static final String BD_TOTALPROYECTOS_OBTENER_UNO = "SELECT * FROM totalproyectos.notifications n WHERE n.code = ?";
     private static final String BD_TOTALPROYECTOS_COLUMNA_CODIGO = "code";
@@ -45,6 +47,7 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
     private static final String BD_TOTALPROYECTOS_COLUMNA_MENSAJE = "messagebody";
     private static final String BD_TOTALPROYECTOS_COLUMNA_ESTADO = "status";
     private static final String BD_TOTALPROYECTOS_COLUMNA_NOTIFICA_COORDINADOR = "notifycoordinator";
+    private static final String BD_TOTALPROYECTOS_ID_BD = "totalproyectos";
 
     @Override
     public Notificacion obtenerUnoSiuWeb(String strCodigo) throws GIDaoException {
@@ -52,10 +55,9 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
         PreparedStatement ps = null;
         ResultSet rs = null;
         Notificacion notificacion = null;
-        String strIdBD = "siuweb";
-        
+             
         try{
-            con = getConexion(strIdBD);
+            con = getConexion(BD_SIUWEB_ID_BD);
             ps = con.prepareCall(BD_SIUWEB_OBTENER_UNO);
             ps.setString(1, strCodigo);
             
@@ -105,10 +107,9 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
         PreparedStatement ps = null;
         ResultSet rs = null;
         Notificacion notificacion = null;
-        String strIdBD = "sigep";
-        
+             
         try{
-            con = getConexion(strIdBD);
+            con = getConexion(BD_SIGEP_ID_BD);
             ps = con.prepareCall(BD_SIGEP_OBTENER_UNO);
             ps.setString(1, strCodigo);
             
@@ -155,11 +156,10 @@ public class NotificacionDAOImpl extends JDBCConnectionPool implements Notificac
         PreparedStatement ps = null;
         ResultSet rs = null;
         Notificacion notificacion = null;
-        String strIdBD = "totalproyectos";
-        Integer intDiasNotificar = 0;
+           Integer intDiasNotificar = 0;
         
         try{
-            con = getConexion(strIdBD);
+            con = getConexion(BD_TOTALPROYECTOS_ID_BD);
             ps = con.prepareCall(BD_TOTALPROYECTOS_OBTENER_UNO);
             ps.setString(1, strCodigo);
             

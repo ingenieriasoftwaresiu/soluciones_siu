@@ -6,20 +6,15 @@
 
 package co.edu.udea.solucionessiu.dao;
 
-import co.edu.udea.solucionessiu.dto.Actividad;
 import co.edu.udea.solucionessiu.dto.AnticipoViaticoTiquete;
 import co.edu.udea.solucionessiu.dto.CalibracionEquipo;
 import co.edu.udea.solucionessiu.dto.Cartera;
 import co.edu.udea.solucionessiu.dto.Contrato;
 import co.edu.udea.solucionessiu.dto.ControlInsumo;
 import co.edu.udea.solucionessiu.dto.Documento;
-import co.edu.udea.solucionessiu.dto.EjecucionPptalProyecto;
 import co.edu.udea.solucionessiu.dto.EquipoMnto;
 import co.edu.udea.solucionessiu.dto.MntoPrtvoEqCi;
-import co.edu.udea.solucionessiu.dto.Movimiento;
 import co.edu.udea.solucionessiu.dto.Pedido;
-import co.edu.udea.solucionessiu.dto.PersonaSIGEP;
-import co.edu.udea.solucionessiu.dto.ProyectoSIGEP;
 import co.edu.udea.solucionessiu.dto.RegistroPlanCalibracion;
 import co.edu.udea.solucionessiu.dto.RegistroPlanMejoramiento;
 import co.edu.udea.solucionessiu.exception.GIDaoException;
