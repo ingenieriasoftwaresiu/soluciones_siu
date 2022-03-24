@@ -53,7 +53,7 @@ public class JDBCConnectionPool {
         String strPwd;          
         
         this.strIdBaseDatos = strIdBD;
-        
+                
         try{            
             
             strDatos = getParametrosConexion();
@@ -62,10 +62,10 @@ public class JDBCConnectionPool {
                 strDriver = strDatos[0];
                 strURL = strDatos[1];
                 strLogin = strDatos[2];
-                strPwd = strDatos[3];                                         
-                
-                Class.forName(strDriver);
-                cn = DriverManager.getConnection(strURL, strLogin, strPwd);
+                strPwd = strDatos[3];         
+                                                
+                Class.forName(strDriver);                
+                cn = DriverManager.getConnection(strURL, strLogin, strPwd);                
             }else{
                 throw new GIDaoException("No se pudieron recuperar los parámetros del archivo XML.");
             }            

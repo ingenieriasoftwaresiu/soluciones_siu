@@ -14,7 +14,7 @@ import java.util.Date;
 public class FechaProyectoTotalProyectos {
     
     private Integer idProyecto;
-    private Date fecha;
+    private String fecha;
     private String tipoFecha;
 
     public Integer getIdProyecto() {
@@ -25,14 +25,14 @@ public class FechaProyectoTotalProyectos {
         this.idProyecto = idProyecto;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-
+    
     public String getTipoFecha() {
         return tipoFecha;
     }
