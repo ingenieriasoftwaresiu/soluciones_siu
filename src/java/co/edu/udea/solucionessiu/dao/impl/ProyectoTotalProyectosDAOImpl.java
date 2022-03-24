@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author jorge.correaj
  */
-public class ProyectoTotalProyectosDAImpl extends JDBCConnectionPool implements ProyectoTotalProyectosDAO {
+public class ProyectoTotalProyectosDAOImpl extends JDBCConnectionPool implements ProyectoTotalProyectosDAO {
     
     private static final String OBTENER_UNO = "SELECT * FROM totalproyectos.projects p WHERE p.id = ?";
     private static final String OBTENER_ACTIVOS = "SELECT * FROM totalproyectos.projects p WHERE (p.statusid = ? OR p.statusid = ?);";
