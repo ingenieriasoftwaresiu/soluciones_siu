@@ -31,6 +31,11 @@ import java.util.List;
  */
 public class PruebaNotificarFechasProyectosTotalProyectos {
     
+    private static final String CODIGO_FECHA_INICIO = "FINI";
+    private static final String CODIGO_FECHA_FIN = "FFIN";
+    private static final String CODIGO_FECHA_COMPROMISOS = "FPLAZ";
+    private static final String CODIGO_FECHA_REPORTE = "FENTR";
+    
     public static void main(String[] args){
         
         new GIDaoException("Iniciando tarea NotificarFechasProyectosTotalProyectos");
@@ -41,9 +46,10 @@ public class PruebaNotificarFechasProyectosTotalProyectos {
         String strIdBD = "totalproyectos";
                 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT-5"));
         FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
         strFechaActual = funcionesComunesDAO.getFechaActual();
-        
+               
         System.out.println("Fecha actual: " + strFechaActual);
         
         try{
@@ -116,6 +122,55 @@ public class PruebaNotificarFechasProyectosTotalProyectos {
         
         if (fechasProyectos.size() > 0){
             
+            Integer intDiasAntes = 0;
+            Long lngEpochTime = 0L, lgDiasDiferencia= 0L;
+            String strFecha = "", strIdCodigoNotificacion = "";
+            Date dtFechaProyecto;
+            
+            for (FechaProyectoTotalProyectos fechaProyecto : fechasProyectos){
+                
+                lngEpochTime = Long.parseLong(fechaProyecto.getFecha());
+                strFecha = funcionesComunesDAO.getDateFromEpochTime(lngEpochTime, sdf);
+                dtFechaProyecto = funcionesComunesDAO.getDateFromString(strFecha);
+                
+                if (dtFechaActual.before(dtFechaProyecto)){
+                    if (fechaProyecto.getTipoFecha().equals("FECHAINICIO")){
+                        strIdCodigoNotificacion = CODIGO_FECHA_INICIO;
+                    }
+                    
+                    if (fechaProyecto.getTipoFecha().equals("FECHAFIN")){
+                        strIdCodigoNotificacion = CODIGO_FECHA_FIN;
+                    }
+                    
+                    if (fechaProyecto.getTipoFecha().equals("FECHACOMPROMISOS")){
+                        strIdCodigoNotificacion = CODIGO_FECHA_COMPROMISOS;
+                    }
+                    
+                    if (fechaProyecto.getTipoFecha().equals("FECHAINFORME")){
+                        strIdCodigoNotificacion = CODIGO_FECHA_REPORTE;
+                    }
+                    
+                    try{
+                        notificacion = notificacionDAO.obtenerUnoTotalProyectos(strIdCodigoNotificacion);
+                    }catch(GIDaoException gi){
+                        new GIDaoException("No se pudo recuperar la notificación con código " + strIdCodigoNotificacion,gi);
+                        notificacion = null;
+                    }
+                    
+                    if (notificacion != null){
+                        intDiasAntes = notificacion.getDiasNotificar();                                                                   
+                        lgDiasDiferencia = (Long)(funcionesComunesDAO.getDiasDiferenciaFechas(dtFechaActual, dtFechaProyecto));
+                                            
+                        if (lgDiasDiferencia.toString().equals(intDiasAntes.toString())){
+                            
+                        }
+                    }
+                }
+               
+                lngEpochTime = 0L;
+                strFecha = "";
+                dtFechaProyecto = null;
+            }
         }
         
         new GIDaoException("Total de proyectos recuperados: " + proyectosActivos.size());

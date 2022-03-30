@@ -7,6 +7,7 @@
 package co.edu.udea.solucionessiu.dao;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
@@ -38,5 +39,6 @@ public interface FuncionesComunesDAO {
     public String reemplazarUltimoCaracterCadena(String strCadena);
     public Boolean tieneDecimales(BigDecimal bdValor);
     public String convertirFechaLarga(String strFecha);
-    public String convertirNotacionEACadena(double valor);                 
+    public String convertirNotacionEACadena(double valor);      
+    public String getDateFromEpochTime(Long lngUnixTime, SimpleDateFormat sdf);
 }

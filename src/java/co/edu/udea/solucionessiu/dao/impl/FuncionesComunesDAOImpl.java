@@ -529,5 +529,14 @@ public class FuncionesComunesDAOImpl extends JDBCConnectionPool implements Funci
         calendar.add(Calendar.YEAR, intNumAnios);
         return calendar.getTime();        
     }
+
+    @Override
+    public String getDateFromEpochTime(Long lngUnixTime, SimpleDateFormat sdf) {
+        
+        Date date = new java.util.Date(lngUnixTime);    
+        String formattedDate = sdf.format(date);        
+        return formattedDate;
+        
+    }
     
 }
