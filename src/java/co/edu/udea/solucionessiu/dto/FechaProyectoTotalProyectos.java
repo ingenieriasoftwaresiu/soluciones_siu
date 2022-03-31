@@ -16,7 +16,16 @@ public class FechaProyectoTotalProyectos {
     private Integer idProyecto;
     private String fecha;
     private String tipoFecha;
+    private String nombreInforme;
 
+    public String getNombreInforme() {
+        return nombreInforme;
+    }
+
+    public void setNombreInforme(String nombreInforme) {
+        this.nombreInforme = nombreInforme;
+    }    
+    
     public Integer getIdProyecto() {
         return idProyecto;
     }

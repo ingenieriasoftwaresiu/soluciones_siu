@@ -33,6 +33,7 @@ public class ProyectoTotalProyectosDAOImpl extends JDBCConnectionPool implements
     private static final String COLUMNA_ID_ESTADO = "statusid";
     private static final String COLUMNA_COMPROMISOS = "commitments";
     private static final String COLUMNA_FECHA_FIN_DEFINITIVA = "enddatedef";
+    private static final String COLUMNA_ID_GESTOR = "managerid";
     private static final String ID_BASE_DATOS = "totalproyectos";
 
     @Override
@@ -61,6 +62,7 @@ public class ProyectoTotalProyectosDAOImpl extends JDBCConnectionPool implements
                 proyecto.setEnddatedef(rs.getString(COLUMNA_FECHA_FIN_DEFINITIVA));
                 proyecto.setCommitments(rs.getString(COLUMNA_COMPROMISOS));
                 proyecto.setStatusid(rs.getInt(COLUMNA_ID_ESTADO));
+                proyecto.setManagerid(rs.getInt(COLUMNA_ID_GESTOR));
                                
             }
             
@@ -118,6 +120,7 @@ public class ProyectoTotalProyectosDAOImpl extends JDBCConnectionPool implements
                     proyecto.setEnddatedef(rs.getString(COLUMNA_FECHA_FIN_DEFINITIVA));
                     proyecto.setCommitments(rs.getString(COLUMNA_COMPROMISOS));
                     proyecto.setStatusid(rs.getInt(COLUMNA_ID_ESTADO));
+                    proyecto.setManagerid(rs.getInt(COLUMNA_ID_GESTOR));
                     proyectos.add(proyecto);
                 }
             }

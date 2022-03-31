@@ -21,7 +21,7 @@ import java.sql.SQLException;
  */
 public class UsuarioTotalProyectosDAOImpl extends JDBCConnectionPool implements UsuarioTotalProyectosDAO{
     
-    private static final String OBTENER_UNO = "SELECT * FROM totalproyectos.projects p WHERE p.id = ?";
+    private static final String OBTENER_UNO = "SELECT * FROM totalproyectos._users u WHERE u.id = ?";
     private static final String COLUMNA_ID = "id";    
     private static final String COLUMNA_NOMBRE_USUARIO = "username";
     private static final String COLUMNA_EMAIL = "email";

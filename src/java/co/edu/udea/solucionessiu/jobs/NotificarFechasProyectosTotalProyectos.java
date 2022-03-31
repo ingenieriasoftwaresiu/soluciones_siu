@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.edu.udea.solucionessiu.jobs;
 
 import co.edu.udea.solucionessiu.dao.FuncionesComunesDAO;
@@ -26,19 +25,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 /**
  *
- * @author jorge.correa
+ * @author jorge.correaj
  */
-public class PruebaNotificarFechasProyectosTotalProyectos {
+public class NotificarFechasProyectosTotalProyectos implements Job{
     
     private static final String CODIGO_FECHA_INICIO = "FINI";
     private static final String CODIGO_FECHA_FIN = "FFIN";
     private static final String CODIGO_FECHA_COMPROMISOS = "FPLAZ";
     private static final String CODIGO_FECHA_REPORTE = "FENTR";
-    
-    public static void main(String[] args){
+
+    @Override
+    public void execute(JobExecutionContext jec) throws JobExecutionException {
         
         new GIDaoException("Iniciando tarea NotificarFechasProyectosTotalProyectos");
         
@@ -50,9 +53,7 @@ public class PruebaNotificarFechasProyectosTotalProyectos {
         sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT-5"));
         FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
         strFechaActual = funcionesComunesDAO.getFechaActual();
-               
-        System.out.println("Fecha actual: " + strFechaActual);
-        
+                               
         try{
             dtFechaActual = sdf.parse(strFechaActual);
         }catch(ParseException pe){
@@ -172,8 +173,7 @@ public class PruebaNotificarFechasProyectosTotalProyectos {
                     if (notificacion != null){
                         intDiasAntes = notificacion.getDiasNotificar();                                                                   
                         lgDiasDiferencia = (Long)(funcionesComunesDAO.getDiasDiferenciaFechas(dtFechaActual, dtFechaProyecto));
-                        System.out.println("lgDiasDiferencia: " + lgDiasDiferencia.toString());
-                        
+                                                
                         if (lgDiasDiferencia.toString().equals(intDiasAntes.toString())){                        
                             
                             fechaProyecto.setFecha(strFecha);
@@ -199,6 +199,5 @@ public class PruebaNotificarFechasProyectosTotalProyectos {
         
         new GIDaoException("Total de notificaciones enviadas: " + intTotalNotificaciones.toString());
         new GIDaoException("Finalizando tarea NotificarFechasProyectosTotalProyectos ");
-    }
-    
+    }    
 }
