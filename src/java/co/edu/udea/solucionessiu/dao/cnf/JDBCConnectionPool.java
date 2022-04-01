@@ -35,10 +35,10 @@ public class JDBCConnectionPool {
     private String strIdBaseDatos;       
         
     /*SIU-WEB*/
-   //private static final String RUTA_XML = "C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0_Tomcat7041\\webapps\\soluciones_siu\\WEB-INF\\confBD.xml";
+   private static final String RUTA_XML = "C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0_Tomcat7041\\webapps\\soluciones_siu\\WEB-INF\\confBD.xml";
     
     /*ING-SOFTWARE*/
-   private static final String RUTA_XML = "C:\\WebApps\\soluciones_siu\\web\\WEB-INF\\confBD.xml";    
+   //private static final String RUTA_XML = "C:\\WebApps\\soluciones_siu\\web\\WEB-INF\\confBD.xml";    
     
      /*SIU-PRUEBAS*/
     //private static final String RUTA_XML = "C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\webapps\\soluciones_siu\\WEB-INF\\confBD.xml";

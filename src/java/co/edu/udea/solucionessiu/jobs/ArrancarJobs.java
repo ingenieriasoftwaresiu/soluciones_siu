@@ -21,6 +21,9 @@ public class ArrancarJobs implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        
+        new GIDaoException("Se inició la carga de las tareas programadas");
+        
        try{
             new ProgramacionNotificarVencimientoPedidos().crearProgramacion();
             new ProgramacionNotificarVencimientoDocumentos().crearProgramacion();
@@ -44,6 +47,9 @@ public class ArrancarJobs implements ServletContextListener {
             new ProgramacionNotificarActividades().crearProgramacion();
             new ProgramacionNotificarReservas().crearProgramacion();
             new ProgramacionNotificarFechasProyectosTotalProyectos().crearProgramacion();
+            
+            new GIDaoException("La carga de las tareas programadas finalizó correctamente!");
+            
         }catch (Exception ex) {
             new GIDaoException("Se generó un error al arrancar los jobs de la aplicación", ex);
         }
@@ -51,9 +57,13 @@ public class ArrancarJobs implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+                
+        new GIDaoException("Se inició la finalización de las tareas programadas!");
+        
        try{
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.shutdown(false);
+            new GIDaoException("La finalización de las tareas programadas terminó correctamente!");
         } catch (Exception ex) {
             new GIDaoException("Se generó un error al detener los jobs de la aplicación Soluciones SIU", ex);
         }
