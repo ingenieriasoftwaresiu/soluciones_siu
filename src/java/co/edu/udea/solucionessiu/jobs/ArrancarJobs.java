@@ -47,6 +47,7 @@ public class ArrancarJobs implements ServletContextListener {
             new ProgramacionNotificarActividades().crearProgramacion();
             new ProgramacionNotificarReservas().crearProgramacion();
             new ProgramacionNotificarFechasProyectosTotalProyectos().crearProgramacion();
+            new ProgramacionActualizarEstadoProyectosTotalProyectos().crearProgramacion();
             
             new GIDaoException("La carga de las tareas programadas finalizó correctamente!");
             
