@@ -16,6 +16,7 @@ import java.util.List;
 public interface ProyectoTotalProyectosDAO {
     
     public ProyectoTotalProyectos obtenerUno(Integer intId) throws GIDaoException;
+    public List<ProyectoTotalProyectos> obtenerTodos() throws GIDaoException;
     public List<ProyectoTotalProyectos> obtenerActivos() throws GIDaoException;
     public List<ProyectoTotalProyectos> obtenerFinalizados() throws GIDaoException;
     public Integer actualizarEstadoProyecto(ProyectoTotalProyectos proyecto, Integer intIdNuevoEstado) throws GIDaoException;

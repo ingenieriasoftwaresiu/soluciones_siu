@@ -31,16 +31,16 @@ public class ActualizarEstadoProyectosTotalProyectos implements Job{
         
         new GIDaoException("Iniciando tarea ActualizarEstadoProyectosTotalProyectos");
         
-        String strFechaActual, strFechaFinalizacionDef;
+        String strFechaActual, strFechaFinalizacionDef, strFechaInicio;
         Integer intIdProyecto, intIdEstadoProyecto, intAfectados, intTotalAfectados = 0;
-        Date dtFechaActual = null, dtFechaFinDefProyecto = null;       
-        Long lngEpochTime = 0L;
+        Date dtFechaActual = null, dtFechainicioProyecto = null, dtFechaFinDefProyecto = null;       
+        Long lngEpochTimeFechaFin = 0L, lngEpochTimeFechaInicio = 0L;
                         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT-5"));
         FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
-        strFechaActual = funcionesComunesDAO.getFechaActual();                       
-        
+        strFechaActual = funcionesComunesDAO.getFechaActual();
+                               
         try{
             dtFechaActual = sdf.parse(strFechaActual);
         }catch(ParseException pe){
@@ -48,27 +48,63 @@ public class ActualizarEstadoProyectosTotalProyectos implements Job{
         }
         
         ProyectoTotalProyectosDAO proyectoTotalProyectosDAO = new ProyectoTotalProyectosDAOImpl();
-        List<ProyectoTotalProyectos> proyectosFinalizados = null;               
+        List<ProyectoTotalProyectos> proyectosTodos = null;               
         
         try{
-            proyectosFinalizados = proyectoTotalProyectosDAO.obtenerFinalizados();
+            proyectosTodos = proyectoTotalProyectosDAO.obtenerTodos();
         }catch(GIDaoException gi){
-            new GIDaoException("Se generó un error al intentar recuperar los proyectos finalizados desde la base de datos");
-            proyectosFinalizados = null;
+            new GIDaoException("Se generó un error al intentar recuperar todos los proyectos desde la base de datos");
+            proyectosTodos = null;
         }
         
-        if (proyectosFinalizados != null){                
+        if (proyectosTodos != null){                
                         
-            for (ProyectoTotalProyectos proyecto : proyectosFinalizados){
+            for (ProyectoTotalProyectos proyecto : proyectosTodos){
                 
                 intIdProyecto = proyecto.getId();
                 intIdEstadoProyecto = proyecto.getStatusid();
-                strFechaFinalizacionDef = proyecto.getEnddatedef();                         
+                strFechaInicio = proyecto.getStartdate();
+                strFechaFinalizacionDef = proyecto.getEnddatedef();     
                 
-                lngEpochTime = Long.parseLong(strFechaFinalizacionDef);
-                strFechaFinalizacionDef = funcionesComunesDAO.getDateFromEpochTime(lngEpochTime, sdf);
-                dtFechaFinDefProyecto = funcionesComunesDAO.getDateFromString(strFechaFinalizacionDef);                                
-               
+                lngEpochTimeFechaInicio = Long.parseLong(strFechaInicio);
+                strFechaInicio = funcionesComunesDAO.getDateFromEpochTime(lngEpochTimeFechaInicio, sdf);
+                dtFechainicioProyecto = funcionesComunesDAO.getDateFromString(strFechaInicio);
+                
+                lngEpochTimeFechaFin = Long.parseLong(strFechaFinalizacionDef);
+                strFechaFinalizacionDef = funcionesComunesDAO.getDateFromEpochTime(lngEpochTimeFechaFin, sdf);
+                dtFechaFinDefProyecto = funcionesComunesDAO.getDateFromString(strFechaFinalizacionDef);
+                                                
+                // Proyectos con fecha de inicio menor a la actual y en estado Creado (5), deben pasar a Activo (1).
+                if (dtFechainicioProyecto.before(dtFechaActual) && intIdEstadoProyecto.toString().equals("5")){
+                    try{
+                        intAfectados = proyectoTotalProyectosDAO.actualizarEstadoProyecto(proyecto, 1);
+                        
+                        if (intAfectados > 0){
+                            new GIDaoException("Se cambió el estado del proyecto con código " + proyecto.getSiucode() + " de Creado a Activo!");
+                            intTotalAfectados++;
+                        }
+                        
+                    }catch(GIDaoException gi){
+                        new GIDaoException("No se pudo actualizar el estado del proyecto con id " + intIdProyecto.toString());
+                    } 
+                }
+                
+                // Proyectos con fecha de finalización definitiva menor a la actual y en estado Activo (1), deben pasar a Finalizado (2).
+                if (dtFechaFinDefProyecto.before(dtFechaActual) && intIdEstadoProyecto.toString().equals("1")){
+                    try{
+                        intAfectados = proyectoTotalProyectosDAO.actualizarEstadoProyecto(proyecto, 2);
+                        
+                        if (intAfectados > 0){
+                            new GIDaoException("Se cambió el estado del proyecto con código " + proyecto.getSiucode() + " de Activo a Finalizado!");
+                            intTotalAfectados++;
+                        }
+                        
+                    }catch(GIDaoException gi){
+                        new GIDaoException("No se pudo actualizar el estado del proyecto con id " + intIdProyecto.toString());
+                    }
+                }
+                               
+                // Proyectos con fecha de finalización definitiva mayor a la actual y en estado Finalizado (2), deben pasar a Activo (1) (Adición de prórroga).
                 if (dtFechaActual.before(dtFechaFinDefProyecto) && intIdEstadoProyecto.toString().equals("2")){
                     
                     try{
@@ -87,11 +123,12 @@ public class ActualizarEstadoProyectosTotalProyectos implements Job{
                 intIdProyecto = 0;
                 intIdEstadoProyecto = 0;
                 strFechaFinalizacionDef = "";
-                lngEpochTime = 0L;
+                lngEpochTimeFechaFin = 0L;
+                lngEpochTimeFechaInicio = 0L;
                 dtFechaFinDefProyecto = null;
-               
+                dtFechainicioProyecto = null;               
             }
-        }                                                   
+        }                                                
         
         new GIDaoException("Total de proyectos afectados: " + intTotalAfectados);
         new GIDaoException("Finalizando tarea ActualizarEstadoProyectosTotalProyectos ");
