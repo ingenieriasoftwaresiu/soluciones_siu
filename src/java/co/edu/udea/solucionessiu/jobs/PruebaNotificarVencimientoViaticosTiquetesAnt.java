@@ -38,10 +38,9 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
         
         new GIDaoException("Iniciando tarea NotificarVencimientoViaticosTiquetesAnterior ");
         
-        String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNroDiasDespues, strNomHoja, strReserva, strSolicitante, strTipoSolicitud, strNroComprobante, strFechaLimiteEntrega;
-        String strAccionNotificar, strValorLegalizado, strObs, strResponsable, strLugarComision, strFechaInicioComision;
+        String strCodigoNotificacion, strFechaActual, strRutaArchivo, strNroDiasDespues, strNomHoja, strSolicitante, strTipoSolicitud, strNroComprobante, strFechaLimiteEntrega;
+        String strAccionNotificar, strValorLegalizado, strLugarComision, strFechaInicioComision;
         Double dbValorLegalizado;
-        String[] strTemp;
         Integer intFila, intFilaInicio, intColumna, intRegsAlertados;
         Long lgDiasNotificar, lgDiasDiferencia;
         Date dtFechaActual, dtFechaLimiteEntrega, dtFechaInicioComision;
@@ -120,8 +119,7 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
 
                             if (intFila >= intFilaInicio){
                                 Iterator<Cell> cellIterator = row.cellIterator();
-                                
-                                strReserva = "";
+                                                                
                                 strNroComprobante="";
                                 strSolicitante = "";
                                 strTipoSolicitud = "";
@@ -129,12 +127,9 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                 strFechaLimiteEntrega = "";
                                 strValorLegalizado = "";
                                 strAccionNotificar = "";
-                                dtFechaLimiteEntrega = null;
-                                strTemp = null;
+                                dtFechaLimiteEntrega = null;                                
                                 AnticipoViaticoTiquete anticipoViaticoTiquete  = null;
-                                dbValorLegalizado = 0d;
-                                strObs = "";
-                                strResponsable = "";
+                                dbValorLegalizado = 0d;                                
                                 strFechaInicioComision = "";
                                 
                                 while (cellIterator.hasNext()) {
@@ -142,135 +137,93 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                     cell = cellIterator.next();
                                     intColumna = cell.getColumnIndex(); 
                                     
-                                    switch(intColumna){
-                                            case 0: 
-                                               try{
-                                                    if (cell.getStringCellValue() != null){                      
-                                                        System.out.println("String");
-                                                        strReserva = cell.getStringCellValue();                                                        
-                                                    }
-                                                }catch(IllegalStateException ise){
-                                                    if (cell.getNumericCellValue() != 0){
-                                                        System.out.println("Numeric");
-                                                        strReserva = String.valueOf(cell.getNumericCellValue());                                                 
-                                                    }else{                    
-                                                        strReserva = "-";
-                                                    }                                              
+                                    switch(intColumna){                                                                                        
+                                        case 3:
+                                            strSolicitante = cell.getStringCellValue().trim();
+                                            System.out.println("strSolicitante: " + strSolicitante);
+                                        break;
+
+                                        case 4:
+                                            strTipoSolicitud = cell.getStringCellValue().trim();
+                                            System.out.println("strTipoSolicitud: " + strTipoSolicitud);
+                                        break;
+
+                                         case 8:
+                                            try{
+                                                if (cell.getStringCellValue() != null){
+                                                    strNroComprobante = cell.getStringCellValue();
                                                 }
-                                                                                    
-                                            System.out.println("strReserva: " + strReserva);
-                                            break;
-                                            
-                                            case 2: 
-                                               try{
-                                                    if (cell.getStringCellValue() != null){                      
-                                                        System.out.println("String");
-                                                        strResponsable = cell.getStringCellValue();                                                        
-                                                    }
-                                                }catch(IllegalStateException ise){
-                                                    if (cell.getNumericCellValue() != 0){
-                                                        System.out.println("Numeric");
-                                                        strResponsable = String.valueOf(cell.getNumericCellValue());                                                 
-                                                    }else{                    
-                                                        strResponsable = "-";
-                                                    }                                              
+                                            }catch(IllegalStateException ise){
+                                                if (cell.getNumericCellValue() != 0){
+                                                    strNroComprobante = String.valueOf(cell.getNumericCellValue());                                                 
+                                                }else{                    
+                                                    strNroComprobante = "-";
+                                                }         
+                                            }
+
+                                             System.out.println("strNroComprobante: " + strNroComprobante);
+                                        break;   
+
+                                        case 9:
+                                            strLugarComision = cell.getStringCellValue().trim();
+                                            System.out.println("strTipoSolicitud: " + strLugarComision);
+                                        break;
+
+                                        case 10:
+                                          try{
+                                                if (cell.getStringCellValue() != null){
+                                                    strFechaInicioComision = "";
                                                 }
-                                                                                    
-                                            System.out.println("strResponsable: " + strResponsable);
-                                            break;
-                                            
-                                            case 3:
-                                                strSolicitante = cell.getStringCellValue().trim();
-                                                System.out.println("strSolicitante: " + strSolicitante);
-                                            break;
-                                                
-                                            case 4:
-                                                strTipoSolicitud = cell.getStringCellValue().trim();
-                                                System.out.println("strTipoSolicitud: " + strTipoSolicitud);
-                                            break;
-                                                
-                                             case 8:
-                                                try{
-                                                    if (cell.getStringCellValue() != null){
-                                                        strNroComprobante = cell.getStringCellValue();
-                                                    }
-                                                }catch(IllegalStateException ise){
-                                                    if (cell.getNumericCellValue() != 0){
-                                                        strNroComprobante = String.valueOf(cell.getNumericCellValue());                                                 
-                                                    }else{                    
-                                                        strNroComprobante = "-";
-                                                    }         
+                                            }catch(IllegalStateException ise){
+                                                if (cell.getDateCellValue() != null){
+                                                    dtFechaInicioComision = cell.getDateCellValue();
+                                                    strFechaInicioComision = funcionesComunesDAO.convertirFechaLarga(dtFechaInicioComision.toString());                                                                
+                                                }else{
+                                                    dtFechaInicioComision = null;
+                                                    strFechaInicioComision = "";
+                                                }         
+                                            }
+
+                                            System.out.println("strFechaInicioComision: " + strFechaInicioComision);
+                                        break;
+
+                                        case 11:
+                                          try{
+                                                if (cell.getStringCellValue() != null){
+                                                    strFechaLimiteEntrega = "";
                                                 }
-                                                
-                                                 System.out.println("strNroComprobante: " + strNroComprobante);
-                                            break;   
-                                                 
-                                            case 9:
-                                                strLugarComision = cell.getStringCellValue().trim();
-                                                System.out.println("strTipoSolicitud: " + strLugarComision);
-                                            break;
-                                            
-                                            case 10:
-                                              try{
-                                                    if (cell.getStringCellValue() != null){
-                                                        strFechaInicioComision = "";
-                                                    }
-                                                }catch(IllegalStateException ise){
-                                                    if (cell.getDateCellValue() != null){
-                                                        dtFechaInicioComision = cell.getDateCellValue();
-                                                        strFechaInicioComision = funcionesComunesDAO.convertirFechaLarga(dtFechaInicioComision.toString());                                                                
-                                                    }else{
-                                                        dtFechaInicioComision = null;
-                                                        strFechaInicioComision = "";
-                                                    }         
+                                            }catch(IllegalStateException ise){
+                                                if (cell.getDateCellValue() != null){
+                                                    dtFechaLimiteEntrega= cell.getDateCellValue();
+                                                    strFechaLimiteEntrega = funcionesComunesDAO.convertirFechaLarga(dtFechaLimiteEntrega.toString());                                                                
+                                                }else{
+                                                    dtFechaLimiteEntrega = null;
+                                                    strFechaLimiteEntrega = "";
+                                                }         
+                                            }
+
+                                            System.out.println("strFechaLimiteEntrega: " + strFechaLimiteEntrega);
+                                        break;
+
+                                        case 17:
+                                            try{
+                                                if (cell.getStringCellValue() != null){
+                                                    System.out.println("1");
+                                                    strValorLegalizado = cell.getStringCellValue();
                                                 }
-                                              
-                                                System.out.println("strFechaInicioComision: " + strFechaInicioComision);
-                                            break;
-                                                 
-                                            case 11:
-                                              try{
-                                                    if (cell.getStringCellValue() != null){
-                                                        strFechaLimiteEntrega = "";
-                                                    }
-                                                }catch(IllegalStateException ise){
-                                                    if (cell.getDateCellValue() != null){
-                                                        dtFechaLimiteEntrega= cell.getDateCellValue();
-                                                        strFechaLimiteEntrega = funcionesComunesDAO.convertirFechaLarga(dtFechaLimiteEntrega.toString());                                                                
-                                                    }else{
-                                                        dtFechaLimiteEntrega = null;
-                                                        strFechaLimiteEntrega = "";
-                                                    }         
-                                                }
-                                              
-                                                System.out.println("strFechaLimiteEntrega: " + strFechaLimiteEntrega);
-                                            break;
-                                                
-                                            case 17:
-                                                try{
-                                                    if (cell.getStringCellValue() != null){
-                                                        System.out.println("1");
-                                                        strValorLegalizado = cell.getStringCellValue();
-                                                    }
-                                                }catch(IllegalStateException ise){
-                                                    if (cell.getNumericCellValue() != 0){
-                                                        System.out.println("2");                   
-                                                        dbValorLegalizado = cell.getNumericCellValue();
-                                                        strValorLegalizado = String.valueOf(dbValorLegalizado.intValue());
-                                                    }else{                    
-                                                        System.out.println("3");
-                                                        strValorLegalizado = "-";
-                                                    }         
-                                                }
-                                                
-                                                 System.out.println("strValorLegalizado: " + strValorLegalizado);
-                                            break; 
-                                                
-                                            case 21:
-                                                strObs = cell.getStringCellValue().trim();
-                                                System.out.println("strObs: " + strObs);
-                                            break;
-                                                
+                                            }catch(IllegalStateException ise){
+                                                if (cell.getNumericCellValue() != 0){
+                                                    System.out.println("2");                   
+                                                    dbValorLegalizado = cell.getNumericCellValue();
+                                                    strValorLegalizado = String.valueOf(dbValorLegalizado.intValue());
+                                                }else{                    
+                                                    System.out.println("3");
+                                                    strValorLegalizado = "-";
+                                                }         
+                                            }
+
+                                             System.out.println("strValorLegalizado: " + strValorLegalizado);
+                                        break;                                                                                                                                             
                                     }                                                                        
                                     
                                 } // Fin del iterador de celdas.
@@ -302,17 +255,14 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                         
                                             strAccionNotificar = "DIAVENC";
 
-                                            anticipoViaticoTiquete = new AnticipoViaticoTiquete();
-                                            anticipoViaticoTiquete.setReserva(strReserva);
+                                            anticipoViaticoTiquete = new AnticipoViaticoTiquete();                                    
                                             anticipoViaticoTiquete.setSolicitante(strSolicitante);
                                             anticipoViaticoTiquete.setTipoSolicitud(strTipoSolicitud);
                                             anticipoViaticoTiquete.setNroComprobante(strNroComprobante);
                                             anticipoViaticoTiquete.setFechaLimiteEntrega(strFechaLimiteEntrega);
                                             anticipoViaticoTiquete.setAccionNotificar(strAccionNotificar);
-                                            anticipoViaticoTiquete.setValorLegalizado(strValorLegalizado);
-                                            anticipoViaticoTiquete.setObservacion(strObs);
-                                            anticipoViaticoTiquete.setCodigoNotificacion(strCodigoNotificacion);
-                                            anticipoViaticoTiquete.setResponsable(strResponsable);
+                                            anticipoViaticoTiquete.setValorLegalizado(strValorLegalizado);                     
+                                            anticipoViaticoTiquete.setCodigoNotificacion(strCodigoNotificacion);                                
                                             anticipoViaticoTiquete.setLugarComision(strLugarComision);
                                             anticipoViaticoTiquete.setFechaInicioComision(strFechaInicioComision);
 
@@ -320,7 +270,7 @@ public class PruebaNotificarVencimientoViaticosTiquetesAnt {
                                                 notificacionMailDAO.notificarVencimientoAnticipoViaticoTiquete(anticipoViaticoTiquete);                      
                                                 intRegsAlertados++;
                                              } catch(GIDaoException g){
-                                                new GIDaoException("Se generó un error enviando la notificación para la solicitud " + strReserva,g);
+                                                new GIDaoException("Se generó un error enviando la notificación para la solicitud " + strNroComprobante,g);
                                             }                                                  
                                         }                                                                                  
                                 }      

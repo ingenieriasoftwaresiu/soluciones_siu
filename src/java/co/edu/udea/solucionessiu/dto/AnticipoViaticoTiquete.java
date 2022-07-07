@@ -13,7 +13,6 @@ import java.util.Date;
  * @author jorge.correaj
  */
 public class AnticipoViaticoTiquete {
-    private String reserva;
     private String grupo;
     private String solicitante;
     private String tipoSolicitud;
@@ -21,9 +20,7 @@ public class AnticipoViaticoTiquete {
     private String fechaLimiteEntrega;
     private String valorLegalizado;
     private String accionNotificar;
-    private String observacion;
     private String codigoNotificacion;
-    private String responsable;
     private String lugarComision;
     private String fechaInicioComision;
     private String nroTicket;
@@ -51,15 +48,7 @@ public class AnticipoViaticoTiquete {
     public void setLugarComision(String lugarComision) {
         this.lugarComision = lugarComision;
     }
-        
-    public String getResponsable() {
-        return responsable;
-    }
-
-    public void setResponsable(String responsable) {
-        this.responsable = responsable;
-    }       
-
+           
     public String getCodigoNotificacion() {
         return codigoNotificacion;
     }
@@ -67,15 +56,7 @@ public class AnticipoViaticoTiquete {
     public void setCodigoNotificacion(String codigoNotificacion) {
         this.codigoNotificacion = codigoNotificacion;
     }
-        
-    public String getObservacion() {
-        return observacion;
-    }
-
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
-    }
-        
+                   
     public String getAccionNotificar() {
         return accionNotificar;
     }
@@ -99,15 +80,7 @@ public class AnticipoViaticoTiquete {
     public void setGrupo(String grupo) {
         this.grupo = grupo;
     }
-
-    public String getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(String reserva) {
-        this.reserva = reserva;
-    }
-
+    
     public String getSolicitante() {
         return solicitante;
     }

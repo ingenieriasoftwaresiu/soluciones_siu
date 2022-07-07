@@ -1001,23 +1001,20 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
     @Override
     public void notificarVencimientoAnticipoViaticoTiquete(AnticipoViaticoTiquete anticipoViaticoTiquete) throws GIDaoException {
         
-        String strNombreDestinatario=null, strEmailDestinatario=null, strReserva, strSolicitante, strTipoSolicitud, strNroComprobante, strAccionNotificar, strValorLegalizado, strFechaLimiteEntrega;
-        String strCodigoNotificacion=null, strObs, strResponsable, strLugarComision, strFechaInicioComision, strNroTicket, strGrupo;
+        String strNombreDestinatario=null, strEmailDestinatario=null, strSolicitante, strTipoSolicitud, strNroComprobante, strAccionNotificar, strValorLegalizado, strFechaLimiteEntrega;
+        String strCodigoNotificacion=null, strLugarComision, strFechaInicioComision, strNroTicket, strGrupo;
         NotificacionDAO notificacionDAO = new NotificacionDAOImpl();
         Notificacion notificacion = null;
                 
         FuncionesComunesDAO funcionesComunesDAO = new FuncionesComunesDAOImpl();
         
-        strCodigoNotificacion = anticipoViaticoTiquete.getCodigoNotificacion().trim();
-        strReserva = "";
+        strCodigoNotificacion = anticipoViaticoTiquete.getCodigoNotificacion().trim();     
         strSolicitante = "";
         strTipoSolicitud = "";
         strNroComprobante = "";
         strAccionNotificar = "";
         strValorLegalizado = "";
         strFechaLimiteEntrega = "";
-        strObs = "";
-        strResponsable = "";
         strLugarComision = "";
         strFechaInicioComision = "";
         strNroTicket = "";
@@ -1033,16 +1030,13 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         if (notificacion != null){            
 
             strNombreDestinatario = notificacion.getNombreDestinatario().trim();         
-            strEmailDestinatario = notificacion.getEmailDestinatario().trim();
-            strReserva = anticipoViaticoTiquete.getReserva();            
+            strEmailDestinatario = notificacion.getEmailDestinatario().trim();            
             strSolicitante = anticipoViaticoTiquete.getSolicitante();
             strTipoSolicitud = anticipoViaticoTiquete.getTipoSolicitud();
             strNroComprobante = anticipoViaticoTiquete.getNroComprobante();
             strFechaLimiteEntrega = anticipoViaticoTiquete.getFechaLimiteEntrega();
             strAccionNotificar = anticipoViaticoTiquete.getAccionNotificar();
             strValorLegalizado = anticipoViaticoTiquete.getValorLegalizado().trim();            
-            strObs = anticipoViaticoTiquete.getObservacion().trim();
-            strResponsable = anticipoViaticoTiquete.getResponsable().trim();
             strLugarComision = anticipoViaticoTiquete.getLugarComision().trim();
             strFechaInicioComision = anticipoViaticoTiquete.getFechaInicioComision().trim();
             strNroTicket = anticipoViaticoTiquete.getNroTicket().trim();
@@ -1077,7 +1071,6 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
         
             this.strMensaje += "Cordial saludo.<br /><br />";
             this.strMensaje += "Los datos asociados con la solicitud de <b>" + strTipoSolicitud.toUpperCase() + "</b> con comprobante #" + strNroComprobante + " son:<br /><br />";
-            this.strMensaje += "- <b>Nombre del responsable:</b> " + strResponsable.trim() + ".<br />";
             
             if (strCodigoNotificacion.equals("ANTVIATTIQACT")){
                 this.strMensaje += "- <b>Nombre del grupo:</b> " + strGrupo.trim() + ".<br />";
@@ -1089,7 +1082,7 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
             this.strMensaje += "- <b>Fecha inicio comisión [aaaa-mm-dd]:</b> " + strFechaInicioComision + ".<br />";
             this.strMensaje += "- <b>Fecha fin comisión [aaaa-mm-dd]:</b> " + strFechaLimiteEntrega + ".<br />";
             this.strMensaje += "- <b>Nro. del ticket:</b> " + strNroTicket + ".<br />";
-            this.strMensaje += "- <b>Observación:</b> " + strObs + ".<br /><br />";
+   
             this.strMensaje += "Si ya hizo entrega de la documentación requerida en la Administración SIU, por favor hace caso omiso de este mensaje.<br /><br />";
             this.strMensaje += "Recuerde que:<br /><br />";
             this.strMensaje += "- Para legalizar Anticipos, debe adjuntar las facturas que sumen el total del valor otorgado.<br /><br />";
