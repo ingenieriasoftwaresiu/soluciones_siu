@@ -606,6 +606,19 @@ public class NotificacionMailSiuWebDAOImpl extends EnvioMailDAOimpl implements N
 
                             sendMailHTML(this.parametroMail);
                             new GIDaoException("Notificación de calibración enviada correctamente a " + strNomRespCalibracion + " al correo " + strEmailRespCalibracion + " para el equipo " + strEquipo);                           
+                        
+                            // Envío de copias del mensaje
+                            
+                            this.strDestinatario = "luis.gonzalez13@udea.edu.co";
+                            this.parametroMail.setDestinatario(this.strDestinatario);
+                            sendMailHTML(this.parametroMail);
+                            new GIDaoException("Notificación de calibración enviada correctamente a Luis González al correo " + this.strDestinatario + " para el equipo " + strEquipo);
+                            
+                            this.strDestinatario = "yenny.lezcano@udea.edu.co";
+                            this.parametroMail.setDestinatario(this.strDestinatario);
+                            sendMailHTML(this.parametroMail);                     
+                            new GIDaoException("Notificación de calibración enviada correctamente a Yenny Lezcano al correo " + this.strDestinatario + " para el equipo " + strEquipo);
+                        
                         }else{
                             new GIDaoException("CALIBRACIÓN: No se pudo dividir el responsable 2.");
                         }
